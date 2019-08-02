@@ -22,10 +22,11 @@ Provide a high level comparison of the discrepancies to the user.
 
 
 ### Stretch Goals
-Be able to analyze social media (Tweets etc.) for potentially gender biased words.
-Be able to analyze audio files for potentially gender biased words.
-Be able to analyze movie files for potentially gender biased words.
-Be able to analyze transcripts, audio files or movie files for words that do not promote diversity.
-Be able to analyze transcripts, audio files or movie files for words that do not promote inclusivity.
-Be able to analyze transcripts, audio files or movie files for words that do not promote growth mindset.
-Be able to analyze transcripts, audio files or movie files for words that do not promote accessibility for as many individuals and people groups as possible.
+*Train our own Natural Language Processer using the Karis API to meet specific needs, enumarated below: 
+*Be able to analyze social media (Tweets etc.) for potentially gender biased words.
+*Be able to analyze audio files for potentially gender biased words.
+*Be able to analyze movie files for potentially gender biased words.
+*Be able to analyze transcripts, audio files or movie files for words that do not promote diversity.
+*Be able to analyze transcripts, audio files or movie files for words that do not promote inclusivity.
+*Be able to analyze transcripts, audio files or movie files for words that do not promote growth mindset.
+*Be able to analyze transcripts, audio files or movie files for words that do not promote accessibility for as many individuals and people groups as possible.
