@@ -1,11 +1,16 @@
 # Back End
 
 Desc of Back End
+This is the backend for the ATATvI project, written in Python and using Flask, serveral
+end-points are published for consuming data and triggering work to be processed.
 
 ## How to  Install
 
+Invoke PipEnv Shell
 `pipenv shell`
-`pipend install`
+
+Install Dependencies
+`pipenv install`
 
 ## How to Run
 
