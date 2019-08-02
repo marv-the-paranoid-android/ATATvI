@@ -4,13 +4,54 @@ Desc of Back End
 
 ## How to  Install
 
-This is how
+`pipenv shell`
+`pipend install`
 
 ## How to Run
 
-This is How
+`flask run`
 
 ## API
 
-Desc of APIs
 
+### Get Work
+`/api/v1/process/getwork`
+```
+http GET :5000/api/v1/process/getwork
+
+HTTP/1.0 200 OK
+Content-Length: 5
+Content-Type: application/json
+Date: Fri, 02 Aug 2019 21:27:57 GMT
+Server: Werkzeug/0.15.5 Python/3.7.4
+
+null
+```
+
+### Do Work
+`/api/v1/process/dowork/<int:id>`
+```
+http PUT :5000/api/v1/process/dowork/1
+
+HTTP/1.0 200 OK
+Content-Length: 5
+Content-Type: application/json
+Date: Fri, 02 Aug 2019 21:28:52 GMT
+Server: Werkzeug/0.15.5 Python/3.7.4
+
+null
+```
+
+### Report
+`/api/v1/report`
+```
+http GET :5000/api/v1/report
+
+HTTP/1.0 200 OK
+Content-Length: 5
+Content-Type: application/json
+Date: Fri, 02 Aug 2019 21:29:39 GMT
+Server: Werkzeug/0.15.5 Python/3.7.4
+
+null
+```
