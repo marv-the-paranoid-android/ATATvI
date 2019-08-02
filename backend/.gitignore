@@ -4,6 +4,7 @@ g.cmd
 t.cmd
 i.cmd
 migrations/
+.vscode/
 
 
 # Created by https://www.gitignore.io/api/python

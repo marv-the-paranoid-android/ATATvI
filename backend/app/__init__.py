@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -18,9 +18,5 @@ def create_app(ConfigClass):
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
     with app.app_context():
-
-
+        # Dunno about this.. but it is here from other projects
         return app
-
-
-from app.models import Tweets  # noqa: E402
