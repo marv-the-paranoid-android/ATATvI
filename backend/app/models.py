@@ -8,16 +8,14 @@ from app import db
 class Tweets(db.Model): # @TODO, How do I make the primary unique
 
     # @TODO:
-    # Make sure ID is auto_increment
-    # Switch Party to Int?
     # Make unique key (party, person, date)
     # Index Status
 
     id             = db.Column(db.Integer, primary_key=True) # @TODO, is this auto_increment?
-    party          = db.Column(db.String(256)) # @TODO, switch to Integer?
-    person         = db.Column(db.String(256))
-    datetime       = db.Column(db.DateTime)   # @TODO, is this correct type?
-    status         = db.Column(db.String(1))   # @DOC: 0==tobeprocessed, 1==processing, 2==processed
+    party          = db.Column(db.String(256), nullable=False)
+    person         = db.Column(db.String(256), nullable=False)
+    tweet          = db.Column(db.String(280), nullable=False)
+    status         = db.Column(db.String(1), default=0, nullable=False)   # @DOC: 0==tobeprocessed, 1==processing, 2==processed
     tone_anger     = db.Column(db.Float)
     tone_fear      = db.Column(db.Float)
     tone_joy       = db.Column(db.Float)
