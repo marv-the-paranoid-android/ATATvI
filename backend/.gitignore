@@ -3,7 +3,6 @@ e.cmd
 g.cmd
 t.cmd
 i.cmd
-app.db
 migrations/
 
 
