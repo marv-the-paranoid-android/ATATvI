@@ -23,4 +23,4 @@ def create_app(ConfigClass):
         return app
 
 
-from app.models import Boat, Crew  # noqa: E402
+from app.models import Tweets  # noqa: E402
