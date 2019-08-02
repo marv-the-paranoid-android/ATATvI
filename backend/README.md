@@ -6,11 +6,20 @@ end-points are published for consuming data and triggering work to be processed.
 
 ## How to  Install
 
-Invoke PipEnv Shell
+Invoke PipEnv Shell:
 `pipenv shell`
 
-Install Dependencies
+Install Dependencies:
 `pipenv install`
+
+On DB Changes:
+```
+rm app.db
+rm -rf migrations
+flask db init
+flask db migrate
+flask db upgrade
+```
 
 ## How to Run
 
