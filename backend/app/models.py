@@ -1,10 +1,15 @@
 from app import db
 
-
+# **** NOTE: Why are all these #noqa: E??? comments here??
 # noqa: E203
 # noqa: E221
+#
+# Ya, I know. I like lined up code and was hoping we could
+# leave these here until the data model is locked down.
+# IMHO, it makes it easier to read
 
-class Tweets(db.Model):
+
+class Tweet(db.Model):
 
     # @TODO:
     # Index Status
@@ -24,6 +29,13 @@ class Tweets(db.Model):
     tone_analytic  = db.Column(db.Float, default=0)
     tone_confident = db.Column(db.Float, default=0)
     tone_tentative = db.Column(db.Float, default=0)
+
+    def __init__(self, party, person, tweet):
+        super().__init__()
+
+        self.party  = party
+        self.person = person
+        self.tweet  = tweet
 
     def to_dict(self):
         return {
