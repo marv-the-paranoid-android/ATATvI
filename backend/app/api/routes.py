@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, json
 from app import db
 from app.models import Tweets
 from app.api import bp
@@ -36,4 +36,28 @@ def process_dowork(id):
 
 @bp.route('/report', methods=['GET'])
 def report():
-    return jsonify(None)
+    data = {
+        "parties": [
+            {
+                "party"     : "GOP",
+                "anger"     : 0.75,
+                "fear"      : 0.69,
+                "joy"       : 0.00,
+                "sadness"   : 0.88,
+                "analytic"  : 0.10,
+                "confident" : 0.51,
+                "tentative" : 0.22
+            },
+            {
+                "party"     : "DEM",
+                "anger"     : 0.10,
+                "fear"      : 0.11,
+                "joy"       : 0.70,
+                "sadness"   : 0.51,
+                "analytic"  : 0.52,
+                "confident" : 0.49,
+                "tentative" : 0.53
+            }
+        ]
+    }
+    return jsonify(data)

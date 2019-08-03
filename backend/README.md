@@ -102,10 +102,33 @@ null
 http GET :5000/api/v1/report
 
 HTTP/1.0 200 OK
-Content-Length: 5
+Content-Length: 244
 Content-Type: application/json
-Date: Fri, 02 Aug 2019 21:29:39 GMT
+Date: Sat, 03 Aug 2019 03:00:26 GMT
 Server: Werkzeug/0.15.5 Python/3.7.4
 
-null
+{
+    "parties": [
+        {
+            "analytic": 0.1,
+            "anger": 0.75,
+            "confident": 0.51,
+            "fear": 0.69,
+            "joy": 0.0,
+            "party": "GOP",
+            "sadness": 0.88,
+            "tentative": 0.22
+        },
+        {
+            "analytic": 0.52,
+            "anger": 0.1,
+            "confident": 0.49,
+            "fear": 0.11,
+            "joy": 0.7,
+            "party": "DEM",
+            "sadness": 0.51,
+            "tentative": 0.53
+        }
+    ]
+}
 ```
