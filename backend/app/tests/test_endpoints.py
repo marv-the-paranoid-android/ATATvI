@@ -15,15 +15,8 @@ def test_sample_tweet_fixture(sample_tweet):
 
 
 """
-def test_create_(client):
-    crew_info = {"name": "Skipper Vin"}
-    res = client.post("/crew", data=crew_info)
-    assert res.status_code == 200
-    res = client.get("/crew")
-    crew = json.loads(res.data.decode())
-    assert len(crew) == 1
-    assert crew[0]['name'] == "Skipper Vin"
-    assert crew[0].get('boat') is None
+def test_create_tweet(client):
+    pass
 """
 
 """
