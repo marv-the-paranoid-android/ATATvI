@@ -5,8 +5,16 @@ from app.api import bp
 from app.api.errors import bad_request
 
 
+@bp.route('/tweet/<int:id>', methods=['GET'])
+def tweet_getone(id):
+    print(f'id:[{id}]')
+    tweet = Tweet.query.get(id)
+    print(f't:[{tweet.to_dict()}]')
+    return jsonify(tweet.to_dict())
+
+
 @bp.route('/tweet/create', methods=['POST'])
-def process_tweet_create():
+def tweet_create():
     data = request.json or request.form
     print(f'data:[{data}]')
     if 'party' not in data or 'person' not in data or 'tweet' not in data:
