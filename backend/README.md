@@ -34,12 +34,52 @@ flask db upgrade
 http GET :5000/api/v1/process/getwork
 
 HTTP/1.0 200 OK
-Content-Length: 5
+Content-Length: 456
 Content-Type: application/json
-Date: Fri, 02 Aug 2019 21:27:57 GMT
+Date: Fri, 02 Aug 2019 23:36:20 GMT
 Server: Werkzeug/0.15.5 Python/3.7.4
 
-null
+{
+    "id": 1,
+    "party": "GOP",
+    "person": "TRUMP",
+    "status": "0",
+    "tone_analytic": null,
+    "tone_anger": null,
+    "tone_confident": null,
+    "tone_fear": null,
+    "tone_joy": null,
+    "tone_sadness": null,
+    "tone_tentative": null,
+    "tweet": "Our great Republican Congressman John Ratcliffe is being treated very unfairly by the LameStream Media. Rather than going through months of slander and libel, I explained to John how miserable it would be for him and his family to deal with these people..."
+}
+```
+
+## Set Status
+`/api/v1/process/setstatus/<int:id> (BODY == statusid='99')`
+```
+http PUT :5000/api/v1/process/setstatus/1 statusid=34
+
+
+HTTP/1.0 200 OK
+Content-Length: 457
+Content-Type: application/json
+Date: Sat, 03 Aug 2019 00:07:25 GMT
+Server: Werkzeug/0.15.5 Python/3.7.4
+
+{
+    "id": 1,
+    "party": "GOP",
+    "person": "TRUMP",
+    "status": "34",
+    "tone_analytic": null,
+    "tone_anger": null,
+    "tone_confident": null,
+    "tone_fear": null,
+    "tone_joy": null,
+    "tone_sadness": null,
+    "tone_tentative": null,
+    "tweet": "Our great Republican Congressman John Ratcliffe is being treated very unfairly by the LameStream Media. Rather than going through months of slander and libel, I explained to John how miserable it would be for him and his family to deal with these people..."
 ```
 
 ### Do Work
