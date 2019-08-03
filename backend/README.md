@@ -28,6 +28,13 @@ flask db upgrade
 
 ## API
 
+### Tweek
+
+`/api/v1/tweet/<int:id>`
+
+`/api/v1/tweet/create`
+
+
 ### Get Work
 
 `/api/v1/process/getwork`
