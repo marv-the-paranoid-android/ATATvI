@@ -13,7 +13,8 @@ Install Dependencies:
 `pipenv install`
 
 On DB Changes:
-```
+
+```bash
 rm app.db
 rm -rf migrations
 flask db init
@@ -27,10 +28,11 @@ flask db upgrade
 
 ## API
 
-
 ### Get Work
+
 `/api/v1/process/getwork`
-```
+
+```bash
 http GET :5000/api/v1/process/getwork
 
 HTTP/1.0 200 OK
@@ -42,7 +44,7 @@ Server: Werkzeug/0.15.5 Python/3.7.4
 {
     "id": 1,
     "party": "GOP",
-    "person": "TRUMP",
+    "person": "Trump",
     "status": "0",
     "tone_analytic": null,
     "tone_anger": null,
@@ -56,8 +58,10 @@ Server: Werkzeug/0.15.5 Python/3.7.4
 ```
 
 ## Set Status
+
 `/api/v1/process/setstatus/<int:id> (BODY == statusid='99')`
-```
+
+```bash
 http PUT :5000/api/v1/process/setstatus/1 statusid=34
 
 
@@ -70,7 +74,7 @@ Server: Werkzeug/0.15.5 Python/3.7.4
 {
     "id": 1,
     "party": "GOP",
-    "person": "TRUMP",
+    "person": "Trump",
     "status": "34",
     "tone_analytic": null,
     "tone_anger": null,
@@ -83,8 +87,10 @@ Server: Werkzeug/0.15.5 Python/3.7.4
 ```
 
 ### Do Work
+
 `/api/v1/process/dowork/<int:id>`
-```
+
+```bash
 http PUT :5000/api/v1/process/dowork/1
 
 HTTP/1.0 200 OK
@@ -97,8 +103,10 @@ null
 ```
 
 ### Report
+
 `/api/v1/report`
-```
+
+```bash
 http GET :5000/api/v1/report
 
 HTTP/1.0 200 OK
