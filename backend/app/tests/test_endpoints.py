@@ -2,7 +2,8 @@ import json
 
 
 def test_process_setstatus(client, sample_tweet):
-    res = client.put(f"/api/v1/process/setstatus/{sample_tweet.id}", data={"statusid": "45"})
+    res = client.put(f"/api/v1/process/setstatus/{sample_tweet.id}", data={'statusid': '45'})
+    print(f'res:[{res.status_code}]')
     assert res.status_code == 204
     assert json.loads(res.data.decode()) == []
 

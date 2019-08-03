@@ -15,7 +15,7 @@ def process_getwork():
 
 @bp.route('/process/setstatus/<int:id>', methods=['PUT'])
 def process_setstatus(id):
-    data = request.get_json() or {}
+    data = request.get_json() or request.form
     if 'statusid' not in data:
         return bad_request('must include statusid')
     tweet = Tweet.query.filter_by(id=id).first()
@@ -26,6 +26,7 @@ def process_setstatus(id):
     db.session.commit()
     response = jsonify(tweet.to_dict())
     response.status_code = 204  # 204=="resource updated successfully"
+    print(f'status_code:[{response.status_code}]')
     return jsonify(tweet.to_dict())
 
 

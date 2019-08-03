@@ -1,16 +1,15 @@
 import requests
 import abc
 import json
-from os import environ
-from flask import jsonify, Response
+from flask import Response
 
 
 class WebGet:
     __metaclass__ = abc.ABCMeta
 
-    mock_filename = '';
+    mock_filename = ''
 
-    def __init__(self, mock_filename: str=''):
+    def __init__(self, mock_filename: str = ''):
         self.mock_filename = mock_filename
 
     def serialize(self):
@@ -22,9 +21,9 @@ class WebGet:
         validGet = False
         errmsg = ''
         rawdata = ''
-        response = requests.get(url, headers = headers)
-        #print(f'!! DEBUG !!: getRaw()::response:[{response}]')
-        #print(f'!! DEBUG !!: getRaw()::response.text:[{response.text}]')
+        response = requests.get(url, headers=headers)
+        # print(f'!! DEBUG !!: getRaw()::response:[{response}]')
+        # print(f'!! DEBUG !!: getRaw()::response.text:[{response.text}]')
 
         # Error Handling and Data-Validation
         if isinstance(response, requests.models.Response):
@@ -42,8 +41,8 @@ class WebGet:
         return validGet, rawdata, response, errmsg
 
     def getMock(self) -> requests.models.Response:
-        with open('./mocks/'+self.mock_filename, 'r') as jsonfile:
-           data = json.load(jsonfile)
+        with open('./mocks/' + self.mock_filename, 'r') as jsonfile:
+            data = json.load(jsonfile)
         return(Response(
             json.dumps(data),
             status=200,
@@ -63,7 +62,7 @@ class WebGet:
 
         # Get Data
         validGet, data, response, errmsg = self.getRawData(url, headers, selector)
-        if not validGet: # RESEARCH: Change to use v3.8 Walrus operator?!?
+        if not validGet:  # RESEARCH: Change to use v3.8 Walrus operator?!?
             return errmsg
 
         return json.dumps(data)
