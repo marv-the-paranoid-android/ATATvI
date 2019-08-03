@@ -7,22 +7,18 @@ from app.api.errors import bad_request
 
 @bp.route('/tweet/<int:id>', methods=['GET'])
 def tweet_getone(id):
-    print(f'id:[{id}]')
     tweet = Tweet.query.get(id)
-    print(f't:[{tweet.to_dict()}]')
     return jsonify(tweet.to_dict())
 
 
 @bp.route('/tweet/create', methods=['POST'])
 def tweet_create():
     data = request.json or request.form
-    print(f'data:[{data}]')
     if 'party' not in data or 'person' not in data or 'tweet' not in data:
         return bad_request('must include party & person & tweet')
     tweet = Tweet(
         party=data.get("party"), person=data.get("person"), tweet=data.get("tweet")
     )
-    print(f'tweet:[{tweet}]')
     db.session.add(tweet)
     db.session.commit()
     return jsonify(tweet.to_dict())
@@ -49,7 +45,7 @@ def process_setstatus(id):
     db.session.commit()
     response = jsonify(tweet.to_dict())
     response.status_code = 204  # 204=="resource updated successfully"
-    print(f'status_code:[{response.status_code}]')
+    #  print(f'status_code:[{response.status_code}]')
     return jsonify(tweet.to_dict())
 
 

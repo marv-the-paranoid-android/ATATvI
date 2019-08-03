@@ -27,8 +27,8 @@ def test_create_tweet(client):
 
 
 def test_get_one_tweet(client, sample_tweet):
-    print(f'tweet:[{sample_tweet.to_dict()}]')
     res = client.get(f'/api/v1/tweet/{sample_tweet.id}')
-    print(f'res.data:[{res.data}]')
     tweet_dict = json.loads(res.data.decode())
-    assert tweet_dict["person"] == "Trump"
+    assert tweet_dict['party'] == sample_tweet.party
+    assert tweet_dict['person'] == sample_tweet.person
+    assert tweet_dict['tweet'] == sample_tweet.tweet
