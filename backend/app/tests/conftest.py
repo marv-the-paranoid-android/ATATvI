@@ -27,7 +27,7 @@ def client():
 
 @pytest.fixture
 def sample_tweet(client):
-    tweet = Tweet(party="GOP", person="TRUMP", tweet="Bigly")
+    tweet = Tweet(party="GOP", person="Trump", tweet="Bigly")
     db.session.add(tweet)
     db.session.commit()
     return tweet
