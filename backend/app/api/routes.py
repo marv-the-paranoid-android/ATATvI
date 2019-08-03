@@ -5,6 +5,21 @@ from app.api import bp
 from app.api.errors import bad_request
 
 
+@bp.route('/tweet/create', methods=['POST'])
+def process_tweet_create():
+    data = request.json or request.form
+    print(f'data:[{data}]')
+    if 'party' not in data or 'person' not in data or 'tweet' not in data:
+        return bad_request('must include party & person & tweet')
+    tweet = Tweet(
+        party=data.get("party"), person=data.get("person"), tweet=data.get("tweet")
+    )
+    print(f'tweet:[{tweet}]')
+    db.session.add(tweet)
+    db.session.commit()
+    return jsonify(tweet.to_dict())
+
+
 @bp.route('/process/getwork', methods=['GET'])
 def process_getwork():
     tweet = Tweet.query.filter_by(status=0).first()
