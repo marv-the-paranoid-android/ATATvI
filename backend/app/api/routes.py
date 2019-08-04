@@ -5,6 +5,13 @@ from app.api import bp
 from app.api.errors import bad_request
 
 
+@bp.route('/tweets', methods=['GET'])
+def tweet_getall():
+    print(f'all:[{Tweet.query.all()}]')
+    tweets = [tweet.to_dict() for tweet in Tweet.query.all()]
+    return jsonify(tweets)
+
+
 @bp.route('/tweet/<int:id>', methods=['GET'])
 def tweet_getone(id):
     tweet = Tweet.query.get(id)
