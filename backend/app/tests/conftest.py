@@ -44,4 +44,3 @@ def sample_tweets(client):
     db.session.add(tweet2)
     db.session.commit()
     return [tweet1, tweet2]
-

@@ -44,4 +44,3 @@ def test_get_all_tweet(client, sample_tweets):
     assert tweets_dict[1]['person'] == 'Trump'
     assert tweets_dict[0]['tweet'] == 'Bigly'
     assert tweets_dict[1]['tweet'] == 'Covfefe'
-
