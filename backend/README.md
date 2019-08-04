@@ -65,6 +65,55 @@ Server: Werkzeug/0.15.5 Python/3.7.4
 }
 ```
 
+#### GET Tweets (All)
+
+GET all Tweets as an array of Tweet() objects from ORM
+
+#### Example: GET Tweets (All)
+
+```bash
+http GET :5000/api/v1/tweets
+```
+
+```http
+HTTP/1.0 200 OK
+Content-Length: 411
+Content-Type: application/json
+Date: Sun, 04 Aug 2019 04:09:26 GMT
+Server: Werkzeug/0.15.5 Python/3.7.4
+
+[
+    {
+        "id": 1,
+        "party": "gop",
+        "person": "trump",
+        "status": "0",
+        "tone_analytic": 0.0,
+        "tone_anger": 0.0,
+        "tone_confident": 0.0,
+        "tone_fear": 0.0,
+        "tone_joy": 0.0,
+        "tone_sadness": 0.0,
+        "tone_tentative": 0.0,
+        "tweet": "bigly"
+    },
+    {
+        "id": 2,
+        "party": "gop",
+        "person": "trump",
+        "status": "0",
+        "tone_analytic": 0.0,
+        "tone_anger": 0.0,
+        "tone_confident": 0.0,
+        "tone_fear": 0.0,
+        "tone_joy": 0.0,
+        "tone_sadness": 0.0,
+        "tone_tentative": 0.0,
+        "tweet": "MexicoWillPayForIt"
+    }
+]
+```
+
 #### POST Tweet (Create)
 
 POST with a Tweet() object via the ORM, will create a tweet record

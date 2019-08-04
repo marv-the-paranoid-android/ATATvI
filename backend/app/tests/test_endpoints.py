@@ -32,3 +32,15 @@ def test_get_one_tweet(client, sample_tweet):
     assert tweet_dict['party'] == sample_tweet.party
     assert tweet_dict['person'] == sample_tweet.person
     assert tweet_dict['tweet'] == sample_tweet.tweet
+
+
+def test_get_all_tweet(client, sample_tweets):
+    res = client.get(f'/api/v1/tweets')
+    tweets_dict = json.loads(res.data.decode())
+    assert len(tweets_dict) == 2
+    assert tweets_dict[0]['party'] == 'GOP'
+    assert tweets_dict[1]['party'] == 'GOP'
+    assert tweets_dict[0]['person'] == 'Trump'
+    assert tweets_dict[1]['person'] == 'Trump'
+    assert tweets_dict[0]['tweet'] == 'Bigly'
+    assert tweets_dict[1]['tweet'] == 'Covfefe'

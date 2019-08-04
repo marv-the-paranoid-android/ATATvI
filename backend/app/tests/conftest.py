@@ -34,3 +34,13 @@ def sample_tweet(client):
     db.session.add(tweet)
     db.session.commit()
     return tweet
+
+
+@pytest.fixture
+def sample_tweets(client):
+    tweet1 = Tweet(party="GOP", person="Trump", tweet="Bigly")
+    db.session.add(tweet1)
+    tweet2 = Tweet(party="GOP", person="Trump", tweet="Covfefe")
+    db.session.add(tweet2)
+    db.session.commit()
+    return [tweet1, tweet2]
