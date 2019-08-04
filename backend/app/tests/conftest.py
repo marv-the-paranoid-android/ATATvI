@@ -5,6 +5,9 @@ from app.models import Tweet
 
 
 class TestConfig(Config):
+
+    SECRET_KEY = 'PPT4P35'
+
     # in memory database for testing
     SQLALCHEMY_DATABASE_URI = "sqlite://"
 
