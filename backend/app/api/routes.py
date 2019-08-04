@@ -24,8 +24,8 @@ def tweet_create():
     return jsonify(tweet.to_dict())
 
 
-@bp.route('/process/getwork', methods=['GET'])
-def process_getwork():
+@bp.route('/process/getpending', methods=['GET'])
+def getpending():
     tweet = Tweet.query.filter_by(status=0).first()
     if tweet is None:
         return jsonify(None)  # @TODO send error

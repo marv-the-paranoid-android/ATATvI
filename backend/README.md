@@ -1,6 +1,5 @@
 # Back End
 
-Desc of Back End
 This is the backend for the ATATvI project, written in Python and using Flask, serveral
 end-points are published for consuming data and triggering work to be processed.
 
@@ -28,13 +27,90 @@ flask db upgrade
 
 ## API
 
-### Get Work
+### Tweek
 
-`/api/v1/process/getwork`
+This family of functions is dedicated to individual actions regarding
+a tweet record.
+
+#### GET Tweet
+
+GET with a tweet `id` will return the Tweet() object via ORM
+
+##### Example: GET Tweet
 
 ```bash
-http GET :5000/api/v1/process/getwork
+http GET :5000/api/v1/tweet/1
+```
 
+```http
+HTTP/1.0 200 OK
+Content-Length: 198
+Content-Type: application/json
+Date: Sun, 04 Aug 2019 03:27:29 GMT
+Server: Werkzeug/0.15.5 Python/3.7.4
+
+{
+    "id": 1,
+    "party": "gop",
+    "person": "trump",
+    "status": "0",
+    "tone_analytic": 0.0,
+    "tone_anger": 0.0,
+    "tone_confident": 0.0,
+    "tone_fear": 0.0,
+    "tone_joy": 0.0,
+    "tone_sadness": 0.0,
+    "tone_tentative": 0.0,
+    "tweet": "bigly"
+}
+```
+
+#### POST Tweet (Create)
+
+POST with a Tweet() object via the ORM, will create a tweet record
+
+##### Example: POST Tweet (Create)
+
+```bash
+http POST :5000/api/v1/tweet/create party=gop person=trump tweet=bigly
+```
+
+```http
+HTTP/1.0 200 OK
+Content-Length: 198
+Content-Type: application/json
+Date: Sun, 04 Aug 2019 03:25:52 GMT
+Server: Werkzeug/0.15.5 Python/3.7.4
+
+{
+    "id": 1,
+    "party": "gop",
+    "person": "trump",
+    "status": "0",
+    "tone_analytic": 0.0,
+    "tone_anger": 0.0,
+    "tone_confident": 0.0,
+    "tone_fear": 0.0,
+    "tone_joy": 0.0,
+    "tone_sadness": 0.0,
+    "tone_tentative": 0.0,
+    "tweet": "bigly"
+}
+```
+
+#### GET Tweet (Pending Analysis)
+
+GET a Tweet() object via the ORM, that is needing to be analyzed (status=='0')
+
+#### Example: GET Tweet (Pending Analysis)
+
+`/api/v1/process/getpending`
+
+```bash
+http GET :5000/api/v1/process/getpending
+```
+
+```http
 HTTP/1.0 200 OK
 Content-Length: 456
 Content-Type: application/json
@@ -53,18 +129,31 @@ Server: Werkzeug/0.15.5 Python/3.7.4
     "tone_joy": null,
     "tone_sadness": null,
     "tone_tentative": null,
-    "tweet": "Our great Republican Congressman John Ratcliffe is being treated very unfairly by the LameStream Media. Rather than going through months of slander and libel, I explained to John how miserable it would be for him and his family to deal with these people..."
+    "tweet": "Bigly"
 }
 ```
 
-## Set Status
+#### PUT Tweet Status
+
+Allows for the setting of a tweet's status (used for processing tweets sent to Watson
+for analysis):
+
+Status | Desc
+-------|-----
+0 | Queued and Ready
+1 | In processed
+2 | Complete
+99 | Error
+
+#### Example PUT Tweet Status
 
 `/api/v1/process/setstatus/<int:id> (BODY == statusid='99')`
 
 ```bash
-http PUT :5000/api/v1/process/setstatus/1 statusid=34
+http PUT :5000/api/v1/process/setstatus/1 statusid=99
+```
 
-
+```http
 HTTP/1.0 200 OK
 Content-Length: 457
 Content-Type: application/json
@@ -75,7 +164,7 @@ Server: Werkzeug/0.15.5 Python/3.7.4
     "id": 1,
     "party": "GOP",
     "person": "Trump",
-    "status": "34",
+    "status": "99",
     "tone_analytic": null,
     "tone_anger": null,
     "tone_confident": null,
@@ -83,16 +172,27 @@ Server: Werkzeug/0.15.5 Python/3.7.4
     "tone_joy": null,
     "tone_sadness": null,
     "tone_tentative": null,
-    "tweet": "Our great Republican Congressman John Ratcliffe is being treated very unfairly by the LameStream Media. Rather than going through months of slander and libel, I explained to John how miserable it would be for him and his family to deal with these people..."
+    "tweet": "Bigly"
 ```
 
 ### Do Work
+
+When triggered with a tweek `id`, a request will be made to IBM Watson
+Tone Analyzer. During this process, the `getwork()` is called to obtain
+a record, `setstatus()` is called to change the status to `1==In Process`,
+the data is sent to Watson and the reply is interrogated. If successful,
+the status is changed to `2==Complete` and the tweet will be available
+in the next `report()` call.
+
+### Example: Do Work
 
 `/api/v1/process/dowork/<int:id>`
 
 ```bash
 http PUT :5000/api/v1/process/dowork/1
+```
 
+```http
 HTTP/1.0 200 OK
 Content-Length: 5
 Content-Type: application/json
@@ -104,11 +204,17 @@ null
 
 ### Report
 
+Averaged score, for each category, aggregated and group by political party. Score is based 0.0 to 1.0, however only >= 0.4 is included.
+
+### Example: Report
+
 `/api/v1/report`
 
 ```bash
 http GET :5000/api/v1/report
+```
 
+```http
 HTTP/1.0 200 OK
 Content-Length: 244
 Content-Type: application/json
