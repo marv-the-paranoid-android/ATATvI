@@ -2,18 +2,27 @@ import React, {Component} from 'react';
 //import ReactDom from 'react-dom';
 import {VictoryArea, VictoryPolarAxis,VictoryChart, VictoryTheme} from 'victory'; 
 
-const testData = [
-  { x: 1, y: 2},
-  { x: 2, y: 3},
-  { x: 3, y: 5},
-  { x: 4, y: 4},
-  { x: 5, y: 6}, 
-  { x: 6, y: 8}, 
-  { x: 7, y: 1}
+// const testData = [
+//   { x: 1, y: .4},
+//   { x: 2, y: .9},
+//   { x: 3, y: .2},
+//   { x: 4, y: .6},
+//   { x: 5, y: .1}, 
+//   { x: 6, y: .8}, 
+//   { x: 7, y: .1}
   
-];
+// ];
 
 class Graph extends Component {
+
+  constructor(props){
+    super(props); 
+    this.state = {
+      data: props.data,
+      color: props.color
+    }
+  }
+
   render(){
     return(
       <VictoryChart polar
@@ -25,7 +34,8 @@ class Graph extends Component {
       <VictoryPolarAxis dependentAxis
         style={{
         axis: {stroke: "none"},
-        grid: { stroke: "grey", strokeDasharray: "4, 8" }}}
+        grid: { stroke: "grey", strokeDasharray: "4, 8" }
+      }}
       />
 
       <VictoryPolarAxis
@@ -33,10 +43,8 @@ class Graph extends Component {
       />
 
       <VictoryArea
-        data={testData}
-        style={{data: {width: 1}}}
-        
-  
+        data={this.data}
+        style={{data: {fill: this.color, width: 1}}}
       />
       </VictoryChart>  
     ); 
