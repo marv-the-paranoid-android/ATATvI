@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 //import ReactDom from 'react-dom';
 import {VictoryArea, VictoryPolarAxis,VictoryChart, VictoryTheme, VictoryLabel} from 'victory'; 
 
-const data2012 = [
-  {quarter: 1, earnings: 13000},
-  {quarter: 2, earnings: 16500},
-  {quarter: 3, earnings: 14250},
-  {quarter: 4, earnings: 19000}
+const testData = [
+  {tone: "anger", percentage: 0.2},
+  {tone: "fear", percentage: 0.15},
+  {tone: "joy", percentage: 0.15},
+  {tone: "sadness", percentage: 0.2},
+  {tone: "analytic", percentage: 0.15},
+  {tone: "confident", percentage: 0.1},
+  {tone: "tentative", percentage: 0.05}
+  
 ];
 
 class Graph extends Component {
@@ -14,27 +18,30 @@ class Graph extends Component {
     return(
       <VictoryChart polar
       theme={VictoryTheme.material}
-      
       >
         <VictoryPolarAxis dependentAxis
-        //style={{axis: {stroke: "black"}}}
-        //tickValues={[1,2,3,4]}
-        //tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
+        style={{axis: {stroke: "none"}}}
+        tickFormat= {[0, .10, .20, .30, .40, .50, .60, .70, .80, .90, 1]}
+        tickValues = {[0, .10, .20, .30, .40, .50, .60, .70, .80, .90, 1]}
         />
         <VictoryPolarAxis
-        // dependentAxis
-        // tickFormat={(x)=>(`$${x/1000}k`)}
+         dependentAxis
+        tickFormat= {[0, .10, .20, .30, .40, .50, .60, .70, .80, .90, 1]}
+        tickValues = {[0, .10, .20, .30, .40, .50, .60, .70, .80, .90, 1]}
         />
+        <VictoryPolarAxis
+        tickFormat= {[0, .10, .20, .30, .40, .50, .60, .70, .80, .90, 1]}
+        tickValues = {[0, .10, .20, .30, .40, .50, .60, .70, .80, .90, 1]}
+        />
+
         <VictoryArea
-        //categories={{x: ["anger", "fear", "joy", "sadness", "analytic", "confident", "tentative"] }}
-        data={data2012}
+        categories={{x: ["anger", "fear", "joy", "sadness", "analytic", "confident", "tentative"] }}
+        data={testData}
         style = {{
           data: {fill: "#c43a31" }
         }}
-        //labels={["anger", "fear", "joy", "sadness", "analytic", "confident", "tentative"]}
-        //labelComponent={<VictoryLabel renderInPortal />}
-        x="quarter" 
-        y="earnings"
+        labels={["anger", "fear", "joy", "sadness", "analytic", "confident", "tentative"]}
+        labelComponent={<VictoryLabel renderInPortal />}
         />
       </VictoryChart>  
     ); 
