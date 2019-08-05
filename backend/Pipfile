@@ -19,6 +19,7 @@ flake8 = "*"
 flask-httpauth = "*"
 flask-login = "*"
 httpie-jwt-auth = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
