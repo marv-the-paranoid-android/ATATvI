@@ -1,6 +1,6 @@
-import React from 'react'; 
-import ReactDom from 'react-dom';
-import {VictoryBar, VictoryChart, VictoryAxis} from 'victory'; 
+import React, {Component} from 'react'; 
+//import ReactDom from 'react-dom';
+import {VictoryArea, VictoryChart, VictoryAxis, VictoryTheme} from 'victory'; 
 
 const data2012 = [
   {quarter: 1, earnings: 13000},
@@ -9,11 +9,22 @@ const data2012 = [
   {quarter: 4, earnings: 19000}
 ];
 
-export class Graph extends React.Component {
+class Graph extends Component {
   render(){
     return(
-      <VictoryChart>
-        <VictoryBar
+      <VictoryChart
+      theme={VictoryTheme.material}
+      domainPadding={20}
+      >
+        <VictoryAxis
+        tickValues={[1,2,3,4]}
+        tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
+        />
+        <VictoryAxis
+        dependentAxis
+        tickFormat={(x)=>(`$${x/1000}k`)}
+        />
+        <VictoryArea
         data={data2012}
         x="quarter" 
         y="earnings"
@@ -23,3 +34,4 @@ export class Graph extends React.Component {
   }
 }
 
+export default Graph; 
