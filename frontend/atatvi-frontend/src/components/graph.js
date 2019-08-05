@@ -3,13 +3,13 @@ import React, {Component} from 'react';
 import {VictoryArea, VictoryPolarAxis,VictoryChart, VictoryTheme, VictoryLabel} from 'victory'; 
 
 const testData = [
-  {tone: "anger", percentage: 20},
-  {tone: "fear", percentage: 15},
-  {tone: "joy", percentage: 20},
-  {tone: "sadness", percentage: 20},
-  {tone: "analytic", percentage: 15},
-  {tone: "confident", percentage: 10},
-  {tone: "tentative", percentage: 5}
+  {tone: "anger", percentage: "20"},
+  {tone: "fear", percentage: "15"},
+  {tone: "joy", percentage: "20"},
+  {tone: "sadness", percentage: "20"},
+  {tone: "analytic", percentage: "15"},
+  {tone: "confident", percentage: "10"},
+  {tone: "tentative", percentage: "5"}
   
 ];
 
@@ -24,7 +24,7 @@ class Graph extends Component {
         <VictoryPolarAxis dependentAxis
           style={{
           axis: {stroke: "none"},
-          tickLabels: { fill: "none"},
+          //tickLabels: { fill: ""},
            grid: { stroke: "grey", strokeDasharray: "4, 8" }}}
         />
 
