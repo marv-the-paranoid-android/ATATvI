@@ -48,7 +48,8 @@ class App extends Component{
  
   getData(){
     //TODO: refactor to env
-    const url = 'https://atatvi.onrender.com'
+    const url = 'http://localhost:5000'
+    //'https://atatvi.onrender.com'
     //const axios = require('axios')
 
     axios.get(url+'/api/v1/tweets')
