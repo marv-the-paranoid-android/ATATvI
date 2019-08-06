@@ -174,3 +174,21 @@ def get_all_sadness_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]
     print(tweets)
     return tweets
+
+@bp.route('tweets/analytic', methods=['GET'])
+def get_all_analytic_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/confident', methods=['GET'])
+def get_all_confident_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/tentative', methods=['GET'])
+def get_all_tentative_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]
+    print(tweets)
+    return tweets
