@@ -41,6 +41,9 @@ def getpending():
 
 @bp.route('/process/setstatus/<int:id>', methods=['PUT'])
 def process_setstatus(id):
+    # @REVIST: Honestly, this probably shouldn't be exposed,
+    # as it's really only used for internal processing. But
+    # it's here
     data = request.get_json() or request.form
     if 'statusid' not in data:
         return bad_request('must include statusid')
@@ -58,7 +61,31 @@ def process_setstatus(id):
 
 @bp.route('/process/dowork/<int:id>', methods=['PUT'])
 def process_dowork(id):
-    return jsonify(None)
+    tweet = Tweet.query.get(id)
+    if not tweet or tweet.status == 0:  # @TODO turn status into EnumInt
+        return bad_request(f'tweet::id:[{id}] is not a valid status for processing.')
+
+    # Set Status to in Progress
+    tweet.status = 1
+    db.session.add(tweet)
+    db.session.commit()
+
+    # Send Payload to Watson
+    # @TODO Send Payload
+
+    # Save Payload from Watson
+    # @TODO Parse Payload and Save
+
+    # Set Status to Complete
+    # @TODO Do ony one of the follow
+    # if ok
+    tweet.status = 2
+    # else
+    tweet.status = 99
+    db.session.add(tweet)
+    db.session.commit()
+
+    return jsonify(tweet.to_dict())
 
 
 @bp.route('/report', methods=['GET'])

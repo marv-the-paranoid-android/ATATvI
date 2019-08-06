@@ -44,3 +44,12 @@ def test_get_all_tweet(client, sample_tweets):
     assert tweets_dict[1]['person'] == 'Trump'
     assert tweets_dict[0]['tweet'] == 'Bigly'
     assert tweets_dict[1]['tweet'] == 'Covfefe'
+
+def test_process_dowork(client, sample_tweet):
+    res = client.put(f'/api/v1/process/dowork/{sample_tweet.id}')
+    print(f'res:[{res}]')
+    tweets_dict = json.loads(res.data.decode())
+    assert tweets_dict['party'] == 'GOP'
+    assert tweets_dict['person'] == 'Trump'
+    assert tweets_dict['tweet'] == 'Bigly'
+    assert tweets_dict['status'] == '99'
