@@ -3,8 +3,9 @@ import json
 
 def test_process_setstatus(client, sample_tweet):
     res = client.put(f"/api/v1/process/setstatus/{sample_tweet.id}", data={'statusid': '45'})  # noqa: E221 E501
-    print(f'res:[{res.status_code}]')
-    assert res.status_code == 200  # TODO: This should be 204, it's being set to 204 in the response, but it's coming back 200  # noqa: E501
+    print(f'res:[{res}]')
+    assert res.status_code == 200  #  This should be 204, but I can't get it to return 204 in the route  # noqa: E221 E501
+    print(f'res.data:[{res.data.decode()}]')
     data = json.loads(res.data.decode())
     assert data['status'] == '45'
 
