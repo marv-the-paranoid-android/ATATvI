@@ -1,4 +1,5 @@
 from flask import jsonify, request, Response
+from sqlalchemy.sql import text
 from app import db
 from app.models import Tweet
 from app.api import bp
@@ -37,9 +38,61 @@ def tweet_create():
 
 @bp.route('/process/getpending', methods=['GET'])
 def getpending():
-    tweet = Tweet.query.filter_by(status=0).first()
+
+    # TEST
+    result = db.engine.execute(text("select count(*) cnt from tweet").execution_options(autocommit=True))
+    print(f'result:[{result}]')
+
+
+    # Find the party with the least # scored tweets
+    rs = db.engine.execute(
+        f'select party, count(*) cnt from tweet where status=="{2}" group by party order by cnt'
+    )
+    if len(rs) == 0:
+        return bad_request('Nothing Pending')
+    party = rs[0]['party']
+
+    # Find a tweet
+
+    # Find a person to processed, in which it meets the target party
+    # left join with processed and get first record ordered by
+    # numprocessed (nothing will be null)
+    rs = conn.execute(
+        'select t.person, ifnull(p.numprocessed,0), count(*) from tweet t ' +
+        'left join processed p ' +
+        'on t.person = p.person ' +
+        f'where t.party = "{party}" ' +
+        'group by t.person ' +
+        'order by p.numprocessed ' +
+        'limit 1 '
+    )
+    if len(rs) == 0:
+        return bad_request('Nothing Pending. party')
+    person = rs[0]['person']
+
+    # Get an unprocessed tweet for Party and Person
+    rs = conn.execute(
+        f'select id from tweet where party="{party}" and person="{person}" and status="{0}" '
+    )
+    if len(rs) == 0:
+        return bad_request(f'Nothing pending. party="{party}" and person="{person}"')
+    id = rs[0]['id']
+
+    # Process Tweet
+    # hit the end point?
+
+    # Add or Inc counter in processed
+    rs = conn.execute(
+        f'update processed set numprocessed=numprocessed+1 where person="{person}" '
+    )
+    if rs.rowcount == 0:
+        rs = conn.execute(f'insert into processed (person, numprocessed) values ("{person}", 1)')
+
+    # Load the Tweet Record (changed) and return it
+    tweet = Tweet.query.filter_by(id=id).first()
     if tweet is None:
-        return bad_request('No records to process.')
+        return bad_request(f'Unable to load TweetID:[{id}]')
+
     return jsonify(tweet.to_dict())
 
 
