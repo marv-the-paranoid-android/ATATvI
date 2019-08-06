@@ -1,6 +1,6 @@
 from flask import jsonify, request, Response
 from app import db
-from wsgi import app
+#from wsgi import app
 from app.models import Tweet
 from app.api import bp
 from app.api.errors import bad_request
