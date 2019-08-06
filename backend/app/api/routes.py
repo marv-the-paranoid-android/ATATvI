@@ -116,4 +116,18 @@ def report():
     }
     return jsonify(data)
 
-@bp.route('tweets/<str:{tone}>', methods=['GET'])
+@bp.route('/tweets/anger', methods=['GET'])
+def get_all_angry_tweets():
+    # tweet = Tweet.query.filter_by(tone_anger >= 0.4)
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter_by(tone_anger >= 0.4)]
+    print(tweets)
+    
+# @bp.route('tweets/fear', methods=['GET'])
+# def get_all_angry_tweets():
+#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter_by(tone_fear >= 0.4)]
+#     print(tweets)
+
+# @bp.route('tweets/joy', methods=['GET'])
+# def get_all_angry_tweets():
+#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter_by(tone_fear >= 0.4)]
+#     print(tweets)
