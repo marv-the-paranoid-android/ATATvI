@@ -118,9 +118,11 @@ def report():
 
 @bp.route('/tweets/anger', methods=['GET'])
 def get_all_angry_tweets():
-    # tweet = Tweet.query.filter_by(tone_anger >= 0.4)
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter_by(tone_anger >= 0.4)]
+    # tweet_results = Tweet.query.filter_by(id=1)
+    # print(tweet_results)
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]
     print(tweets)
+    return "Ma dude"
     
 # @bp.route('tweets/fear', methods=['GET'])
 # def get_all_angry_tweets():
