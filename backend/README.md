@@ -28,14 +28,15 @@ flask db upgrade
 ## API
 
 ### Prequests for IBM Watson Tone Analyzer
+
 .env should have the following information with your credentials...
 
-```
+```bash
 IBM_WATSON_TONALITY_APIKEY                 = "djksjdfj$9uRI#JDdj39d#JD#JD#Db2t_M-5tH3QpGPK",
 IBM_WATSON_TONALITY_IAM_APIKEY_DESCRIPTION = "Auto-generated for key f77bdjk-sdsdd-4sds-8sds-ffsdsds47076",
 IBM_WATSON_TONALITY_IAM_APIKEY_NAME        = "Auto-generated service credentials",
 IBM_WATSON_TONALITY_IAM_ROLE_CRN           = "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-IBM_WATSON_TONALITY_IAM_SERVICEID_CRN      = "crn:v1:bluemix:public:iam-identity::a/csfksdkfksfsjdfjhfjdhfjshfdh8c2e::serviceid:ServiceId-fjksdjfj-c256-4bf2-b2ad-dfjksdjfskb9",
+IBM_WATSON_TONALITY_IAM_SERVICEID_CRN      = "crn:v1:bluemix:public:iam-identity::a/sfsjdfjhfjdhfjshfdh8c2e::serviceid:ServiceId-fjksdjfj-c256-4bf2-b2ad-dfjksdjfskb9",
 IBM_WATSON_TONALITY_URL                    = "https://gateway.watsonplatform.net/tone-analyzer/api"
 ```
 

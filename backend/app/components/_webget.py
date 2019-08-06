@@ -8,20 +8,31 @@ class WebGet:
     __metaclass__ = abc.ABCMeta
 
     mock_filename = ''
+    user = ''
+    passwd = ''
 
     def __init__(self, mock_filename: str = ''):
         self.mock_filename = mock_filename
+
+    def setUserPasswd(self, user, passwd):
+        self.user = user
+        self.passwd = passwd
 
     def serialize(self):
         return vars(self)
 
     @staticmethod
-    def getRawData(url : str, headers : dict, selector: str) -> (bool, requests.models.Response, str, str):
+    def getRawData(url : str, headers : dict, selector : str, user:str='', passwd:str='') -> (bool, requests.models.Response, str, str):
         # Perform: Get against URL
         validGet = False
         errmsg = ''
         rawdata = ''
-        response = requests.get(url, headers=headers)
+        print(f'user:[{user}]')
+        print(f'passwd:[{passwd}]')
+        if user == '':
+            response = requests.get(url, headers=headers)
+        else:
+            response = requests.get(url, headers=headers, auth=(user,passwd))
         # print(f'!! DEBUG !!: getRaw()::response:[{response}]')
         # print(f'!! DEBUG !!: getRaw()::response.text:[{response.text}]')
 
@@ -50,18 +61,18 @@ class WebGet:
         ))
 
     @abc.abstractmethod
-    def _makeURL(self, query, lat, long : str) -> (str, dict):
+    def _makeURL(self) -> (str, dict):
         pass
 
-    def getData(self, query, lat, long, selector : str) -> str:
-        if query is None or query == '':
-            return json.dumps({"error": "ERROR: Query==None"})
+    def getData(self, selector : str) -> str:
 
         # Craft URL
-        url, headers = self._makeURL(query, lat, long)
+        url, headers = self._makeURL()
+
+        print(f'url:[{url}]')
 
         # Get Data
-        validGet, data, response, errmsg = self.getRawData(url, headers, selector)
+        validGet, data, response, errmsg = self.getRawData(url, headers, selector, self.user, self.passwd)
         if not validGet:  # RESEARCH: Change to use v3.8 Walrus operator?!?
             return errmsg
 

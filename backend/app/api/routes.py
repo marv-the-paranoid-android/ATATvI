@@ -1,8 +1,10 @@
 from flask import jsonify, request
+from os import environ
 from app import db
 from app.models import Tweet
 from app.api import bp
 from app.api.errors import bad_request
+from app.components.watson import Watson
 
 
 @bp.route('/tweets', methods=['GET'])
@@ -72,6 +74,9 @@ def process_dowork(id):
 
     # Send Payload to Watson
     # @TODO Send Payload
+    watson = Watson(tweet.tweet, 'watson-return.txt')
+    data = watson.getData('document_tone')
+    print(f'data:[{data.response}]')
 
     # Save Payload from Watson
     # @TODO Parse Payload and Save
