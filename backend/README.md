@@ -27,7 +27,16 @@ flask db upgrade
 
 ## API
 
-### Tweet
+### Prequests for IBM Watson Tone Analyzer
+
+.env should have the following information with your credentials...
+
+```bash
+IBM_WATSON_TONALITY_APIKEY = djksjdfj$9uRI#JDdj39d#JD#JD#Db2t_M-5tH3QpGPK
+IBM_WATSON_TONALITY_URL    = https://gateway.watsonplatform.net/tone-analyzer/api
+```
+
+### Tweek
 
 This family of functions is dedicated to individual actions regarding
 a tweet record.
@@ -243,12 +252,25 @@ http PUT :5000/api/v1/process/dowork/1
 
 ```http
 HTTP/1.0 200 OK
-Content-Length: 5
+Content-Length: 212
 Content-Type: application/json
-Date: Fri, 02 Aug 2019 21:28:52 GMT
+Date: Tue, 06 Aug 2019 16:49:40 GMT
 Server: Werkzeug/0.15.5 Python/3.7.4
 
-null
+{
+    "id": 1,
+    "party": "GOP",
+    "person": "Trump",
+    "status": "2",
+    "tone_analytic": null,
+    "tone_anger": null,
+    "tone_confident": null,
+    "tone_fear": null,
+    "tone_joy": null,
+    "tone_sadness": 0.766478,
+    "tone_tentative": null,
+    "tweet": "Tweet"
+}
 ```
 
 ### Report

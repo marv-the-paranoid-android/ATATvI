@@ -2,7 +2,7 @@ import json
 
 
 def test_process_setstatus(client, sample_tweet):
-    res = client.put(f"/api/v1/process/setstatus/{sample_tweet.id}", data={'statusid': '45'})
+    res = client.put(f"/api/v1/process/setstatus/{sample_tweet.id}", data={'statusid': '45'})  # noqa: E221 E501
     print(f'res:[{res.status_code}]')
     assert res.status_code == 200  # TODO: This should be 204, it's being set to 204 in the response, but it's coming back 200  # noqa: E501
     data = json.loads(res.data.decode())
@@ -44,3 +44,12 @@ def test_get_all_tweet(client, sample_tweets):
     assert tweets_dict[1]['person'] == 'Trump'
     assert tweets_dict[0]['tweet'] == 'Bigly'
     assert tweets_dict[1]['tweet'] == 'Covfefe'
+
+
+def test_process_dowork(client, sample_tweet):
+    res = client.put(f'/api/v1/process/dowork/{sample_tweet.id}')
+    tweets_dict = json.loads(res.data.decode())
+    assert tweets_dict['party'] == 'GOP'
+    assert tweets_dict['person'] == 'Trump'
+    assert tweets_dict['tweet'] == 'Bigly'
+    assert tweets_dict['status'] == '2'

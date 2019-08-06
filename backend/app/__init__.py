@@ -1,7 +1,9 @@
+from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+load_dotenv()
 db = SQLAlchemy()
 migrate = Migrate()
 
