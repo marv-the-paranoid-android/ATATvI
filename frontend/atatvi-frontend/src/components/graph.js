@@ -43,8 +43,8 @@ class Graph extends Component {
       />
 
       <VictoryArea
-        data={this.data}
-        style={{data: {fill: this.color, width: 1}}}
+        data={this.state.data}
+        style={{data: {fill: this.state.color, width: 1}}}
       />
       </VictoryChart>  
     ); 
