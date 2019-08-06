@@ -4,6 +4,9 @@ from app.components._webget import WebGet
 from flask import Response
 
 
+# @TODO make another class to encapsulate the data processing (from routes.py)
+# and use composition to merge it into the Watson class
+
 class Watson(WebGet):
 
     text = ''

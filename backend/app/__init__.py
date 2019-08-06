@@ -7,6 +7,9 @@ load_dotenv()
 db = SQLAlchemy()
 migrate = Migrate()
 
+# Singleton for the App instance, for using in other code
+app = ''
+
 
 def create_app(ConfigClass):
 

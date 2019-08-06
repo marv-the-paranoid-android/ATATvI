@@ -1,5 +1,6 @@
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from app import db
+from wsgi import app
 from app.models import Tweet
 from app.api import bp
 from app.api.errors import bad_request
@@ -39,7 +40,7 @@ def tweet_create():
 def getpending():
     tweet = Tweet.query.filter_by(status=0).first()
     if tweet is None:
-        return jsonify(None)  # @TODO send error
+        return bad_request('No records to process.')
     return jsonify(tweet.to_dict())
 
 
@@ -57,9 +58,28 @@ def process_setstatus(id):
     tweet.status = data['statusid']
     db.session.add(tweet)
     db.session.commit()
-    response = jsonify(tweet.to_dict())
-    response.status_code = 204  # 204=="resource updated successfully"
-    #  print(f'status_code:[{response.status_code}]')
+
+    # I can't get these to work!!!
+    # Always, my response.data is blank
+    # this is all the result of trying to change the status
+    # code to 204, so I'm not going to. But I'm going to leave these here
+    # for later
+    #
+    # **** TRY #1
+    # this is different, in that we are creating a Response() object
+    # directly, note the use of json.dumps() against the .to_dict()
+    # response = Response(
+    #     response=json.dumps(tweet.to_dict()),
+    #     status=204,
+    #     content_type='application/json'
+    # )
+    # return response
+    #
+    # **** TRY #2
+    # response = app.response_class(response=json.dumps({"name":"avalue"}),
+    #                               status=204,
+    #                               mimetype='application/json')
+    # return response
     return jsonify(tweet.to_dict())
 
 
