@@ -7,6 +7,7 @@ verify_ssl = true
 black = "*"
 flake8 = "*"
 pytest = "*"
+autopep8 = "*"
 
 [packages]
 flask = "*"
@@ -20,6 +21,7 @@ flask-httpauth = "*"
 flask-login = "*"
 httpie-jwt-auth = "*"
 gunicorn = "*"
+yarn = "*"
 
 [requires]
 python_version = "3.7"

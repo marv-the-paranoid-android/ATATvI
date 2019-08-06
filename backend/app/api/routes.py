@@ -93,25 +93,27 @@ def report():
     data = {
         "parties": [
             {
-                "party"     : "GOP",
-                "anger"     : 0.75,
-                "fear"      : 0.69,
-                "joy"       : 0.00,
-                "sadness"   : 0.88,
-                "analytic"  : 0.10,
-                "confident" : 0.51,
-                "tentative" : 0.22
+                "party": "GOP",
+                "anger": 0.75,
+                "fear": 0.69,
+                "joy": 0.00,
+                "sadness": 0.88,
+                "analytic": 0.10,
+                "confident": 0.51,
+                "tentative": 0.22
             },
             {
-                "party"     : "DEM",
-                "anger"     : 0.10,
-                "fear"      : 0.11,
-                "joy"       : 0.70,
-                "sadness"   : 0.51,
-                "analytic"  : 0.52,
-                "confident" : 0.49,
-                "tentative" : 0.53
+                "party": "DEM",
+                "anger": 0.10,
+                "fear": 0.11,
+                "joy": 0.70,
+                "sadness": 0.51,
+                "analytic": 0.52,
+                "confident": 0.49,
+                "tentative": 0.53
             }
         ]
     }
     return jsonify(data)
+
+@bp.route('tweets/<str:{tone}>', methods=['GET'])
