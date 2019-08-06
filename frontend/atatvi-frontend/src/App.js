@@ -2,10 +2,7 @@ import React, {Component} from 'react';
 import Graph from './components/graph.js';
 import axios from 'axios';
 
-
 require('dotenv').config()
-
-
 
 class App extends Component{
 
@@ -31,6 +28,7 @@ class App extends Component{
         { x: 6, y: apiData.tone_confident}, 
         { x: 7, y: apiData.tone_tentative}
       ])
+      console.log(this.dataRep)
     if (apiData.party === "DEM"){
       this.setState(
         this.dataDem = [
@@ -43,6 +41,7 @@ class App extends Component{
         { x: 7, y: apiData.tone_tentative}
         ]
       )
+      console.log(this.dataDem)
     }  
     }
    }
