@@ -8,7 +8,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 # Singleton for the App instance, for using in other code
-app = ''
+# app = ''
 
 
 def create_app(ConfigClass):
