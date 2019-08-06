@@ -4,6 +4,7 @@ import axios from "axios";
 // import './App.css';
 
 
+
 class App extends Component{
 
   constructor(props){
@@ -14,49 +15,57 @@ class App extends Component{
       color: "#ccccff"
     }
   }
+
+  setData(apiData){
+
+    if (apiData.party === "GOP"){
+      this.setState(
+        this.dataRep = [
+        { x: 1, y: apiData.tone_anger},
+        { x: 2, y: apiData.tone_fear},
+        { x: 3, y: apiData.tone_joy},
+        { x: 4, y: apiData.tone_sadness},
+        { x: 5, y: apiData.tone_analytic}, 
+        { x: 6, y: apiData.tone_confident}, 
+        { x: 7, y: apiData.tone_tentative}
+      ])
+    if (apiData.party === "DEM"){
+      this.setState(
+        this.dataDem = [
+        { x: 1, y: apiData.tone_anger},
+        { x: 2, y: apiData.tone_fear},
+        { x: 3, y: apiData.tone_joy},
+        { x: 4, y: apiData.tone_sadness},
+        { x: 5, y: apiData.tone_analytic}, 
+        { x: 6, y: apiData.tone_confident}, 
+        { x: 7, y: apiData.tone_tentative}
+        ]
+      )
+    }  
+    }
+   }
  
   getData(){
     const url = 'BACKEND-URL'
-    
-    
+    const axios = require('axios')
 
+    axios.get(url+'/api/v1/tweets')
+      .then(function (response){
+       setData(response)
+      })
+      .catch(function(error){
+        //TODO: Error handling
+      })
+      .finally(function(){
+        //TODO: DO we need a finally? 
+      })
   }
 
   setColor(){
 
   }
 
-  // setData(){
-
-  //   if (apiData.party = "GOP"){
-  //     setState(
-  //       dataRep : [
-  //       { x: 1, y: apiData.party["GOP"].anger},
-  //       { x: 2, y: apiData.party["GOP"].fear},
-  //       { x: 3, y: apiData.party["GOP"].joy},
-  //       { x: 4, y: apiData.party["GOP"].sadness},
-  //       { x: 5, y: apiData.party["GOP"].analytic}, 
-  //       { x: 6, y: apiData.party["GOP"].confident}, 
-  //       { x: 7, y: apiData.party["GOP"].tentative}
-  //     ])
-  //   if (apiData.party = "DEM"){
-  //     this.setState(
-  //       dataDem : [
-  //       { x: 1, y: .4},
-  //       { x: 2, y: .9},
-  //       { x: 3, y: .2},
-  //       { x: 4, y: .6},
-  //       { x: 5, y: .1}, 
-  //       { x: 6, y: .8}, 
-  //       { x: 7, y: .1}
-  //       ]
-  //     )
-  //   }  
-  //   }
-
-  
-
-  // }
+ 
 
   render(){
     return (
