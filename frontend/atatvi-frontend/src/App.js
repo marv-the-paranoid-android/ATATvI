@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Graph from './components/graph.js';
-import axios from "axios";
-// import './App.css';
+import axios from 'axios';
+
+
+require('dotenv').config()
 
 
 
@@ -46,12 +48,13 @@ class App extends Component{
    }
  
   getData(){
-    const url = 'BACKEND-URL'
-    const axios = require('axios')
+    //TODO: refactor to env
+    const url = 'https://atatvi.onrender.com'
+    //const axios = require('axios')
 
     axios.get(url+'/api/v1/tweets')
       .then(function (response){
-       setData(response)
+       this.setData(response)
       })
       .catch(function(error){
         //TODO: Error handling
@@ -65,13 +68,15 @@ class App extends Component{
 
   }
 
- 
 
   render(){
+    this.getData()
     return (
      <div className="App">
         <Graph data={this.state.dataDem} color={this.state.color}/>
+        
         <Graph data={this.state.dataRep} color={this.state.color}/>
+        
      </div>
    );
   }
