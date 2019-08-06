@@ -17,35 +17,39 @@ class App extends Component{
   }
 
   setData(apiData){
-    console.log('IN SET DATA')
-    if (apiData.party === "GOP"){
-      this.setState(
-        this.dataRep = [
-        { x: 1, y: apiData.tone_anger},
-        { x: 2, y: apiData.tone_fear},
-        { x: 3, y: apiData.tone_joy},
-        { x: 4, y: apiData.tone_sadness},
-        { x: 5, y: apiData.tone_analytic}, 
-        { x: 6, y: apiData.tone_confident}, 
-        { x: 7, y: apiData.tone_tentative}
-        
-      ])
-      console.log("REP DATA 🦅🦅🦏🦏🦏🦏🇺🇸🇺🇸🇺🇸🇺🇸**********************************************************************************", this.dataRep)
-    if (apiData.party === "DEM"){
-      this.setState(
-        this.dataDem = [
-        { x: 1, y: apiData.tone_anger},
-        { x: 2, y: apiData.tone_fear},
-        { x: 3, y: apiData.tone_joy},
-        { x: 4, y: apiData.tone_sadness},
-        { x: 5, y: apiData.tone_analytic}, 
-        { x: 6, y: apiData.tone_confident}, 
-        { x: 7, y: apiData.tone_tentative}
-        ]
-      )
-      console.log("REP DATA 🦅🦅🐐🐐🐐🐐🇺🇸🇺🇸🇺🇸🇺🇸**********************************************************************************",this.dataDem)
-    }  
-    }
+    //console.log('IN SET DATA')
+    apiData.forEach(tweet => {
+      console.log(tweet["party"])
+      if (tweet["party"] === "GOP"){
+      
+        this.setState(
+          this.dataRep = [
+          { x: 1, y: tweet["tone_anger"]},
+          { x: 2, y: tweet["tone_fear"]},
+          { x: 3, y: tweet["tone_joy"]},
+          { x: 4, y: tweet["tone_sadness"]},
+          { x: 5, y: tweet["tone_analytic"]}, 
+          { x: 6, y: tweet["tone_confident"]}, 
+          { x: 7, y: tweet["tone_tentative"]}
+          
+        ])
+        console.log("REP DATA 🦅🦅🦏🦏🦏🦏🇺🇸🇺🇸🇺🇸🇺🇸**********************************************************************************", this.dataRep)
+      if (tweet["party"] === "DEM"){
+        this.setState(
+          this.dataDem = [
+          { x: 1, y: tweet["tone_anger"]},
+          { x: 2, y: tweet["tone_fear"]},
+          { x: 3, y: tweet["tone_joy"]},
+          { x: 4, y: tweet["tone_sadness"]},
+          { x: 5, y: tweet["tone_analytic"]}, 
+          { x: 6, y: tweet["tone_confident"]}, 
+          { x: 7, y: tweet["tone_tentative"]}
+          ]
+        )
+        console.log("DEM DATA 🦅🦅🐐🐐🐐🐐🇺🇸🇺🇸🇺🇸🇺🇸**********************************************************************************",this.dataDem)
+      }  
+      }
+    });
    }
  
   getData(){
@@ -55,11 +59,13 @@ class App extends Component{
     //'https://atatvi.onrender.com'
     //const axios = require('axios')
     
-    axios.get(url+'/api/v1/tweets')
+    axios.get(url+'/api/v1/report')
       .then(function (response){
-        console.log('in getData above setData'+ response)
-       self.setData(response)
-       console.log('under set data in get data'+response)
+        console.log('in getData above setData'+ JSON.stringify(response))
+        console.log(response.data.parties)
+        self.setData(response.data.parties)
+       
+       //console.log('under set data in get data'+ JSON.stringify(response))
       })
       .catch(function(error){
         console.log(error)
@@ -73,9 +79,12 @@ class App extends Component{
 
   }
 
+  componentDidMount(){
+    this.getData()
+  }
 
   render(){
-    this.getData()
+    
     return (
      <div className="App">
         <Graph data={this.state.dataDem} color={this.state.color}/>
