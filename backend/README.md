@@ -235,7 +235,7 @@ Server: Werkzeug/0.15.5 Python/3.7.4
 
 ### Do Work
 
-When triggered with a tweek `id`, a request will be made to IBM Watson
+When triggered with a tweet `id`, a request will be made to IBM Watson
 Tone Analyzer. During this process, the `getwork()` is called to obtain
 a record, `setstatus()` is called to change the status to `1==In Process`,
 the data is sent to Watson and the reply is interrogated. If successful,
