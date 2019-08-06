@@ -256,12 +256,25 @@ http PUT :5000/api/v1/process/dowork/1
 
 ```http
 HTTP/1.0 200 OK
-Content-Length: 5
+Content-Length: 212
 Content-Type: application/json
-Date: Fri, 02 Aug 2019 21:28:52 GMT
+Date: Tue, 06 Aug 2019 16:49:40 GMT
 Server: Werkzeug/0.15.5 Python/3.7.4
 
-null
+{
+    "id": 1,
+    "party": "GOP",
+    "person": "Trump",
+    "status": "2",
+    "tone_analytic": null,
+    "tone_anger": null,
+    "tone_confident": null,
+    "tone_fear": null,
+    "tone_joy": null,
+    "tone_sadness": 0.766478,
+    "tone_tentative": null,
+    "tweet": "Tweet"
+}
 ```
 
 ### Report
