@@ -118,18 +118,24 @@ def report():
 
 @bp.route('/tweets/anger', methods=['GET'])
 def get_all_angry_tweets():
-    # tweet_results = Tweet.query.filter_by(id=1)
-    # print(tweet_results)
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]
     print(tweets)
-    return "Ma dude"
+    return tweets
     
-# @bp.route('tweets/fear', methods=['GET'])
-# def get_all_angry_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter_by(tone_fear >= 0.4)]
-#     print(tweets)
+@bp.route('tweets/fear', methods=['GET'])
+def get_all_fear_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]
+    print(tweets)
+    return tweets
 
-# @bp.route('tweets/joy', methods=['GET'])
-# def get_all_angry_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter_by(tone_fear >= 0.4)]
-#     print(tweets)
+@bp.route('tweets/joy', methods=['GET'])
+def get_all_joy_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/sadness', methods=['GET'])
+def get_all_sadness_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]
+    print(tweets)
+    return tweets
