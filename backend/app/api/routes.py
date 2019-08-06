@@ -1,6 +1,5 @@
 from flask import jsonify, request, Response
 from app import db
-#from wsgi import app
 from app.models import Tweet
 from app.api import bp
 from app.api.errors import bad_request
@@ -156,7 +155,7 @@ def get_all_angry_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]
     print(tweets)
     return tweets
-    
+
 @bp.route('tweets/fear', methods=['GET'])
 def get_all_fear_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]
