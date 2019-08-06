@@ -67,7 +67,7 @@ def process_setstatus(id):
 def process_dowork(id):
     tweet = Tweet.query.get(id)
     if not tweet or tweet.status == 0:  # @TODO turn status into EnumInt
-        return bad_request(f'tweet::id:[{id}] is not a valid status for processing.')
+        return bad_request(f'tweet::id:[{id}] is not a valid status for processing.')  # noqa: E501
 
     # Set Status to in Progress
     tweet.status = 1
@@ -80,38 +80,23 @@ def process_dowork(id):
     data = watson.getMock('document_tone')
 
     # Save Payload from Watson
-    # @TODO Parse Payload and Save
-    # @TODO test for list type
+    success = False
     payload = json.loads(data.response[0])
-    print(f'payload:[{payload}]')
-    # payload = data.response
-    tones = {
-        'analytical' : 0.0,
-        'anger'      : 0.0,
-        'confident'  : 0.0,
-        'fear'       : 0.0,
-        'joy'        : 0.0,
-        'sadness'    : 0.0,
-        'tentative'  : 0.0
-    }
-    if 'tones' in payload['document_tone']:
-        for x in payload['document_tone']['tones']:
-            print(f'x:[{x}]')
-            if 'tone_id' in x:
-                print('ack')
-payload:[{'document_tone': {'tones': [{'score': 0.766478, 'tone_id': 'sadness', 'tone_name': 'Sadness'}]}}]
-x:[{'score': 0.766478, 'tone_id': 'sadness', 'tone_name': 'Sadness'}]
-ack
-127.0.0.1 - - [05/Aug/2019 21:51:19] "PUT /api/v1/process/dowork/1 HTTP/1.1" 200 -
+    # payload:[{'document_tone': {'tones': [{'score': 0.766478, 'tone_id': 'sadness', 'tone_name': 'Sadness'}]}}]   # noqa: E501
 
-                #tweet.tone_sadness += payload['document_tone']['tones']['sadness']
+    if 'tones' in payload['document_tone']:
+        for rec in payload['document_tone']['tones']:
+            # rec:[{'score': 0.766478, 'tone_id': 'sadness', 'tone_name': 'Sadness'}]  # noqa: E501
+            if 'tone_id' in rec:
+                tone_id = 'tone_' + rec['tone_id']
+                setattr(tweet, tone_id, rec['score'])
+                success = True
 
     # Set Status to Complete
-    # @TODO Do ony one of the follow
-    # if ok
-    tweet.status = 2
-    # else
-    tweet.status = 99
+    if success:
+        tweet.status = 2
+    else:
+        tweet.status = 99
     db.session.add(tweet)
     db.session.commit()
 
@@ -123,24 +108,24 @@ def report():
     data = {
         "parties": [
             {
-                "party"     : "GOP",
-                "anger"     : 0.75,
-                "fear"      : 0.69,
-                "joy"       : 0.00,
-                "sadness"   : 0.88,
-                "analytic"  : 0.10,
-                "confident" : 0.51,
-                "tentative" : 0.22
+                "party"     : "GOP",  # noqa: E203
+                "anger"     : 0.75,   # noqa: E203
+                "fear"      : 0.69,   # noqa: E203
+                "joy"       : 0.00,   # noqa: E203
+                "sadness"   : 0.88,   # noqa: E203
+                "analytic"  : 0.10,   # noqa: E203
+                "confident" : 0.51,   # noqa: E203
+                "tentative" : 0.22    # noqa: E203
             },
             {
-                "party"     : "DEM",
-                "anger"     : 0.10,
-                "fear"      : 0.11,
-                "joy"       : 0.70,
-                "sadness"   : 0.51,
-                "analytic"  : 0.52,
-                "confident" : 0.49,
-                "tentative" : 0.53
+                "party"     : "DEM",  # noqa: E203
+                "anger"     : 0.10,   # noqa: E203
+                "fear"      : 0.11,   # noqa: E203
+                "joy"       : 0.70,   # noqa: E203
+                "sadness"   : 0.51,   # noqa: E203
+                "analytic"  : 0.52,   # noqa: E203
+                "confident" : 0.49,   # noqa: E203
+                "tentative" : 0.53    # noqa: E203
             }
         ]
     }
