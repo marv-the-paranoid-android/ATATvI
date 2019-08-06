@@ -14,7 +14,7 @@ class Watson(WebGet):
         self.setUserPasswd('apikey', environ.get('IBM_WATSON_TONALITY_APIKEY'))
 
     def _makeURL(self) -> (str, dict):
-        return environ.get('IBM_WATSON_TONALITY_URL') + '/v3/tone?version=2017-09-21&text=' + self.text, {}  # noqa: E221 E501
+        return environ.get('IBM_WATSON_TONALITY_URL') + '/v3/tone?version=2017-09-21&sentences=false&text=' + self.text, {}  # noqa: E221 E501
 
     def getData(self, selector: str) -> str:
         data = json.loads(super().getData(selector))

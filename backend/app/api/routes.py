@@ -1,10 +1,10 @@
 from flask import jsonify, request
-from os import environ
 from app import db
 from app.models import Tweet
 from app.api import bp
 from app.api.errors import bad_request
 from app.components.watson import Watson
+import json
 
 
 @bp.route('/tweets', methods=['GET'])
@@ -26,7 +26,9 @@ def tweet_create():
     if 'party' not in data or 'person' not in data or 'tweet' not in data:
         return bad_request('must include party & person & tweet')
     tweet = Tweet(
-        party=data.get("party"), person=data.get("person"), tweet=data.get("tweet")
+        party=data.get("party"),
+        person=data.get("person"),
+        tweet=data.get("tweet")
     )
     db.session.add(tweet)
     db.session.commit()
@@ -75,11 +77,34 @@ def process_dowork(id):
     # Send Payload to Watson
     # @TODO Send Payload
     watson = Watson(tweet.tweet, 'watson-return.txt')
-    data = watson.getData('document_tone')
-    print(f'data:[{data.response}]')
+    data = watson.getMock('document_tone')
 
     # Save Payload from Watson
     # @TODO Parse Payload and Save
+    # @TODO test for list type
+    payload = json.loads(data.response[0])
+    print(f'payload:[{payload}]')
+    # payload = data.response
+    tones = {
+        'analytical' : 0.0,
+        'anger'      : 0.0,
+        'confident'  : 0.0,
+        'fear'       : 0.0,
+        'joy'        : 0.0,
+        'sadness'    : 0.0,
+        'tentative'  : 0.0
+    }
+    if 'tones' in payload['document_tone']:
+        for x in payload['document_tone']['tones']:
+            print(f'x:[{x}]')
+            if 'tone_id' in x:
+                print('ack')
+payload:[{'document_tone': {'tones': [{'score': 0.766478, 'tone_id': 'sadness', 'tone_name': 'Sadness'}]}}]
+x:[{'score': 0.766478, 'tone_id': 'sadness', 'tone_name': 'Sadness'}]
+ack
+127.0.0.1 - - [05/Aug/2019 21:51:19] "PUT /api/v1/process/dowork/1 HTTP/1.1" 200 -
+
+                #tweet.tone_sadness += payload['document_tone']['tones']['sadness']
 
     # Set Status to Complete
     # @TODO Do ony one of the follow

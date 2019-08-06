@@ -60,14 +60,18 @@ class WebGet:
 
         return validGet, rawdata, response, errmsg
 
-    def getMock(self) -> requests.models.Response:
+    def getMock(self, selector: str) -> requests.models.Response:
         with open('./mocks/' + self.mock_filename, 'r') as jsonfile:
-            data = json.load(jsonfile)
-        return(Response(
-            json.dumps(data),
-            status=200,
-            content_type='application/json'
-        ))
+            rawdata = json.load(jsonfile)
+        validGet = WebGet.validateData(rawdata, selector)
+        if validGet:
+            return(Response(
+                json.dumps(rawdata),
+                status=200,
+                content_type='application/json'
+            ))
+        else:
+            print(f'Selector:[{selector}] not found in rawdata')
 
     @abc.abstractmethod
     def _makeURL(self) -> (str, dict):
