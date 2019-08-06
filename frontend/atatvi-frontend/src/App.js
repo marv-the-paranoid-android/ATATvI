@@ -5,8 +5,9 @@ import axios from 'axios';
 require('dotenv').config()
 
 class App extends Component{
-
+  
   constructor(props){
+    console.log('in constructor')
     super(props)
     this.state = {
       dataDem: [],
@@ -16,7 +17,7 @@ class App extends Component{
   }
 
   setData(apiData){
-
+    console.log('IN SET DATA')
     if (apiData.party === "GOP"){
       this.setState(
         this.dataRep = [
@@ -27,8 +28,9 @@ class App extends Component{
         { x: 5, y: apiData.tone_analytic}, 
         { x: 6, y: apiData.tone_confident}, 
         { x: 7, y: apiData.tone_tentative}
+        
       ])
-      console.log(this.dataRep)
+      console.log("REP DATA 🦅🦅🦏🦏🦏🦏🇺🇸🇺🇸🇺🇸🇺🇸**********************************************************************************", this.dataRep)
     if (apiData.party === "DEM"){
       this.setState(
         this.dataDem = [
@@ -41,23 +43,26 @@ class App extends Component{
         { x: 7, y: apiData.tone_tentative}
         ]
       )
-      console.log(this.dataDem)
+      console.log("REP DATA 🦅🦅🐐🐐🐐🐐🇺🇸🇺🇸🇺🇸🇺🇸**********************************************************************************",this.dataDem)
     }  
     }
    }
  
   getData(){
+    let self = this
     //TODO: refactor to env
     const url = 'http://localhost:5000'
     //'https://atatvi.onrender.com'
     //const axios = require('axios')
-
+    
     axios.get(url+'/api/v1/tweets')
       .then(function (response){
-       this.setData(response)
+        console.log('in getData above setData'+ response)
+       self.setData(response)
+       console.log('under set data in get data'+response)
       })
       .catch(function(error){
-        //TODO: Error handling
+        console.log(error)
       })
       .finally(function(){
         //TODO: DO we need a finally? 
