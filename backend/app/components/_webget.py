@@ -22,7 +22,20 @@ class WebGet:
         return vars(self)
 
     @staticmethod
-    def getRawData(url : str, headers : dict, selector : str, user:str='', passwd:str='') -> (bool, requests.models.Response, str, str):
+    def validateData(rawdata, selector: str) -> bool:
+        if selector == '':
+            return True
+
+        if selector in rawdata:
+            results = rawdata.get(selector, '')
+            if type(results) == 'list' or len(results) > 0:
+                rawdata = results
+                return True
+
+        return False
+
+    @staticmethod
+    def getRawData(url: str, headers: dict, selector: str, user: str = '', passwd: str = '') -> (bool, requests.models.Response, str, str):  # noqa:501
         # Perform: Get against URL
         validGet = False
         errmsg = ''
@@ -32,7 +45,7 @@ class WebGet:
         if user == '':
             response = requests.get(url, headers=headers)
         else:
-            response = requests.get(url, headers=headers, auth=(user,passwd))
+            response = requests.get(url, headers=headers, auth=(user, passwd))
         # print(f'!! DEBUG !!: getRaw()::response:[{response}]')
         # print(f'!! DEBUG !!: getRaw()::response.text:[{response.text}]')
 
@@ -40,11 +53,7 @@ class WebGet:
         if isinstance(response, requests.models.Response):
             if response.status_code == 200:
                 rawdata = response.json()
-                if selector in rawdata:
-                    results = rawdata.get(selector, '')
-                    if type(results) == 'list' or len(results) > 0:
-                        rawdata = results
-                        validGet = True
+                validGet = WebGet.validateData(rawdata, selector)
 
         if not validGet:
             errmsg = json.dumps({'invalidGet': json.dumps(response.json())})
@@ -64,7 +73,7 @@ class WebGet:
     def _makeURL(self) -> (str, dict):
         pass
 
-    def getData(self, selector : str) -> str:
+    def getData(self, selector: str) -> str:
 
         # Craft URL
         url, headers = self._makeURL()
@@ -72,7 +81,7 @@ class WebGet:
         print(f'url:[{url}]')
 
         # Get Data
-        validGet, data, response, errmsg = self.getRawData(url, headers, selector, self.user, self.passwd)
+        validGet, data, response, errmsg = self.getRawData(url, headers, selector, self.user, self.passwd)  # noqa:501
         if not validGet:  # RESEARCH: Change to use v3.8 Walrus operator?!?
             return errmsg
 
