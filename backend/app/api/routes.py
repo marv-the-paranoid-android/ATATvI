@@ -93,25 +93,49 @@ def report():
     data = {
         "parties": [
             {
-                "party"     : "GOP",
-                "anger"     : 0.75,
-                "fear"      : 0.69,
-                "joy"       : 0.00,
-                "sadness"   : 0.88,
-                "analytic"  : 0.10,
-                "confident" : 0.51,
-                "tentative" : 0.22
+                "party"     : "GOP",  # noqa: E203
+                "anger"     : 0.75,   # noqa: E203
+                "fear"      : 0.69,   # noqa: E203
+                "joy"       : 0.00,   # noqa: E203
+                "sadness"   : 0.88,   # noqa: E203
+                "analytic"  : 0.10,   # noqa: E203
+                "confident" : 0.51,   # noqa: E203
+                "tentative" : 0.22    # noqa: E203
             },
             {
-                "party"     : "DEM",
-                "anger"     : 0.10,
-                "fear"      : 0.11,
-                "joy"       : 0.70,
-                "sadness"   : 0.51,
-                "analytic"  : 0.52,
-                "confident" : 0.49,
-                "tentative" : 0.53
+                "party"     : "DEM",  # noqa: E203
+                "anger"     : 0.10,   # noqa: E203
+                "fear"      : 0.11,   # noqa: E203
+                "joy"       : 0.70,   # noqa: E203
+                "sadness"   : 0.51,   # noqa: E203
+                "analytic"  : 0.52,   # noqa: E203
+                "confident" : 0.49,   # noqa: E203
+                "tentative" : 0.53    # noqa: E203
             }
         ]
     }
     return jsonify(data)
+
+@bp.route('/tweets/anger', methods=['GET'])
+def get_all_angry_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]
+    print(tweets)
+    return tweets
+    
+@bp.route('tweets/fear', methods=['GET'])
+def get_all_fear_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/joy', methods=['GET'])
+def get_all_joy_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/sadness', methods=['GET'])
+def get_all_sadness_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]
+    print(tweets)
+    return tweets
