@@ -17,25 +17,25 @@ class Tweet(db.Model):
     # noqa: are added to ignore lining up these columns
     # which I think is important right now, during dev
 
-    id             = db.Column(db.Integer, primary_key=True)        # @TODO, is this auto_increment?
-    party          = db.Column(db.String(256), nullable=False)      # noqa: E221
-    person         = db.Column(db.String(256), nullable=False)      # noqa: E221
-    tweet          = db.Column(db.String(280), nullable=False)      # noqa: E221
+    id             = db.Column(db.Integer, primary_key=True)        # noqa: E221 E501 @TODO, is this auto_increment?
+    party          = db.Column(db.String(256), nullable=False)      # noqa: E221 E501
+    person         = db.Column(db.String(256), nullable=False)      # noqa: E221 E501
+    tweet          = db.Column(db.String(280), nullable=False)      # noqa: E221 E501
     status         = db.Column(db.String(1), default=0, nullable=False) # noqa:501 @DOC: 0==tobeprocessed, 1==processing, 2==processed
-    tone_anger     = db.Column(db.Float, default=0)
-    tone_fear      = db.Column(db.Float, default=0)
-    tone_joy       = db.Column(db.Float, default=0)
-    tone_sadness   = db.Column(db.Float, default=0)
-    tone_analytic  = db.Column(db.Float, default=0)
+    tone_anger     = db.Column(db.Float, default=0)  # noqa: E221
+    tone_fear      = db.Column(db.Float, default=0)  # noqa: E221
+    tone_joy       = db.Column(db.Float, default=0)  # noqa: E221
+    tone_sadness   = db.Column(db.Float, default=0)  # noqa: E221
+    tone_analytic  = db.Column(db.Float, default=0)  # noqa: E221
     tone_confident = db.Column(db.Float, default=0)
     tone_tentative = db.Column(db.Float, default=0)
 
     def __init__(self, party, person, tweet):
         super().__init__()
 
-        self.party  = party
+        self.party  = party  # noqa: E221
         self.person = person
-        self.tweet  = tweet
+        self.tweet  = tweet  # noqa: E221
 
     def to_dict(self):
         return {
