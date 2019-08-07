@@ -7,7 +7,6 @@ require('dotenv').config()
 class App extends Component{
   
   constructor(props){
-    console.log('in constructor')
     super(props)
     this.state = {
       dataDem: [
@@ -40,34 +39,35 @@ class App extends Component{
       console.log(tweet["party"])
       if (tweet["party"].toString() === "GOP"){
         this.state.repTweetCounter ++
-        console.log(this.state.repTweetCounter)
+        
         this.setState(
           this.state.dataRep = [
-          { x: 1, y: ( this.state.dataRep[1] + tweet["tone_anger"])/this.repTweetCounter},
-          { x: 2, y: (this.state.dataRep[2] + tweet["tone_fear"])/this.state.repTweetCounter},
-          { x: 3, y: (this.state.dataRep[3] + tweet["tone_joy"]/ this.state.repTweetCounter)},
-          { x: 4, y: (this.state.dataRep[4] + tweet["tone_sadness"])/ this.repTweetCounter},
-          { x: 5, y: (this.state.dataRep[5] + tweet["tone_analytic"])/this.repTweetCounter}, 
-          { x: 6, y: (this.state.dataRep[6] + tweet["tone_confident"])/ this.repTweetCounter}, 
-          { x: 7, y: (this.state.dataRep[7] + tweet["tone_tentative"])/this.repTweetCounter}
+          { x: 1, y: ( this.state.dataRep[0]["y"] + tweet["anger"])/this.repTweetCounter},
+          { x: 2, y: (this.state.dataRep[1]["y"] + tweet["fear"])/this.state.repTweetCounter},
+          { x: 3, y: (this.state.dataRep[2]["y"] + tweet["joy"]/ this.state.repTweetCounter)},
+          { x: 4, y: (this.state.dataRep[3]["y"] + tweet["sadness"])/ this.repTweetCounter},
+          { x: 5, y: (this.state.dataRep[4]["y"] + tweet["analytic"])/this.repTweetCounter}, 
+          { x: 6, y: (this.state.dataRep[5]["y"] + tweet["confident"])/ this.repTweetCounter}, 
+          { x: 7, y: (this.state.dataRep[6]["y"] + tweet["tentative"])/this.repTweetCounter}
         ])
-        console.log(this.state.dataRep)
+        //console.log("whole object"+ this.state.dataRep)
+        //console.log("one line of obj"+ this.state.dataRep[1]["y"])
+        console.log("one line from the tweet data" + tweet["anger"])
+        console.log("tweet counter" + this.state.repTweetCounter)
       }
         
       if (tweet["party"].toString() === "DEM"){
         this.state.demTweetCounter ++
-        console.log(this.state.demTweetCounter)
         this.setState(
           this.state.dataDem = [
-            { x: 1, y: ( this.state.dataDem[1] + tweet["tone_anger"])/this.state.demTweetCounter},
-            { x: 2, y: (this.state.dataDem[2] + tweet["tone_fear"])/this.state.demTweetCounter},
-            { x: 3, y: (this.state.dataDem[3] + tweet["tone_joy"]/ this.state.demTweetCounter)},
-            { x: 4, y: (this.state.dataDem[4] + tweet["tone_sadness"])/ this.state.demTweetCounter},
-            { x: 5, y: (this.state.dataDem[5] + tweet["tone_analytic"])/this.state.demTweetCounter}, 
-            { x: 6, y: (this.state.dataDem[6] + tweet["tone_confident"])/ this.state.demTweetCounter}, 
-            { x: 7, y: (this.state.dataDem[7] + tweet["tone_tentative"])/this.state.demTweetCounter}
+            { x: 1, y: ( this.state.dataDem[0]["y"] + tweet["anger"])/this.state.demTweetCounter},
+            { x: 2, y: (this.state.dataDem[1]["y"] + tweet["fear"])/this.state.demTweetCounter},
+            { x: 3, y: (this.state.dataDem[2]["y"] + tweet["joy"])/ this.state.demTweetCounter},
+            { x: 4, y: (this.state.dataDem[3]["y"] + tweet["sadness"])/ this.state.demTweetCounter},
+            { x: 5, y: (this.state.dataDem[4]["y"] + tweet["analytic"])/this.state.demTweetCounter}, 
+            { x: 6, y: (this.state.dataDem[5]["y"] + tweet["confident"])/ this.state.demTweetCounter}, 
+            { x: 7, y: (this.state.dataDem[6]["y"] + tweet["tentative"])/this.state.demTweetCounter}
           ])
-          console.log(this.state.dataDem)
         }
       }
       );
@@ -84,7 +84,7 @@ class App extends Component{
     axios.get(url+'/api/v1/report')
       .then(function (response){
         console.log('in getData above setData'+ JSON.stringify(response))
-        console.log(response.data.parties)
+        // console.log(response.data.parties)
         self.setData(response.data.parties)
        
        //console.log('under set data in get data'+ JSON.stringify(response))
@@ -98,6 +98,7 @@ class App extends Component{
   }
 
   setColor(){
+
 
   }
 
