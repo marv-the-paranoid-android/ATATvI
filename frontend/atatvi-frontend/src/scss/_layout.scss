@@ -1,0 +1,18 @@
+main {
+    border: solid 2px $black;
+    min-height: 100px;
+    margin: 0 auto;
+}
+
+header {
+    background: $black;
+    font-size: 1.5vw;
+    a{
+        color: $white;
+    }
+}
+
+.graph{
+    display: inline-block;
+    width:50%;
+}

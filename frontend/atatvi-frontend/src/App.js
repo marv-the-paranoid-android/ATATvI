@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import Graph from './components/graph.js';
 import axios from 'axios';
+import Header from './components/header.js';
+import './scss/core.scss';
+
 
 require('dotenv').config()
 
@@ -109,9 +112,10 @@ class App extends Component{
     
     return (
      <div className="App">
-        <Graph data={this.state.dataDem} color={this.state.color}/>
+        <Header />
+        <Graph className="graph" data={this.state.dataDem} color={this.state.color}/>
         
-        <Graph data={this.state.dataRep} color={this.state.color}/>
+        <Graph className="graph" data={this.state.dataRep} color={this.state.color}/>
         
      </div>
    );
