@@ -23,7 +23,7 @@ class Graph extends Component {
         this.state = {
 
             party: props.party,
-            color: "#ccccff",
+            color: props.color,
             set: 0,
 
             counter: 0,
@@ -100,7 +100,8 @@ class Graph extends Component {
                 polar
                 domain={{x: [0, 7]}}
                 theme={VictoryTheme.material}
-                //height={400} width={400}
+                height={200}
+                width={200}
             >
 
                 <VictoryPolarAxis
