@@ -13,7 +13,8 @@ def create_app(ConfigClass):
     app.config.from_object(ConfigClass)
 
     db.init_app(app)
-    migrate.init_app(app, db)
+    # WTF is this?
+    # migrate.init_app(app, db)
 
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api/v1')

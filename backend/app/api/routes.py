@@ -42,13 +42,18 @@ def tweet_create():
 def process_getpending():
 
     # Create new Session
-    Session = sessionmaker(bind=db.engine, autocommit=True)
-    session = Session()
-    print(f'session:[{session}]')
+    # Session = sessionmaker(bind=db.engine, autocommit=True)
+    # session = Session()
+    # print(f'session:[{session}]')
+    session = db.session
+    session.rollback()
 
     # TEST
-    result = session.execute(text("select count(*) cnt from tweet"))
-    print(f'result:[{result}]')
+    try:
+        result = session.execute(text("select count(*) cnt from tweet"))
+        print(f'result:[{result}]')
+    except:
+        print('EXCEPT')
 
 
     # Find the party with the least # scored tweets
@@ -58,6 +63,7 @@ def process_getpending():
     if rs.rowcount == 0:
         return bad_request('Nothing Pending')
     row = rs.fetchone()
+    print(f'row:[{row}]')
     party = row['party']
 
     # Find a tweet
@@ -178,7 +184,7 @@ def process_dowork(id):
     # Send Payload to Watson
     # @TODO Send Payload
     watson = Watson(tweet.tweet, 'watson-return.txt')
-    data = watson.getMock('document_tone')
+    data = watson.getData('document_tone')
 
     # Save Payload from Watson
     success = False
