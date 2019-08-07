@@ -10,22 +10,23 @@ class App extends Component{
     console.log('in constructor')
     super(props)
     this.state = {
-      dataDem:  [{ x: 1, y: anger},
-      { x: 2, y: fear},
-      { x: 3, y: joy},
-      { x: 4, y: sadness},
-      { x: 5, y: analytic}, 
-      { x: 6, y: confident}, 
-      { x: 7, y: tentative},
+      dataDem: [
+      { x: 1, y: 0},
+      { x: 2, y: 0},
+      { x: 3, y: 0},
+      { x: 4, y: 0},
+      { x: 5, y: 0}, 
+      { x: 6, y: 0}, 
+      { x: 7, y: 0},
     ],
       dataRep: [ 
-      { x: 1, y: anger},
-      { x: 2, y: fear},
-      { x: 3, y: joy},
-      { x: 4, y: sadness},
-      { x: 5, y: analytic}, 
-      { x: 6, y: confident}, 
-      { x: 7, y: tentative}
+      { x: 1, y: 0},
+      { x: 2, y: 0},
+      { x: 3, y: 0},
+      { x: 4, y: 0},
+      { x: 5, y: 0}, 
+      { x: 6, y: 0}, 
+      { x: 7, y: 0}
     ],
       demTweetCounter: 0,
       repTweetCounter: 0,
@@ -35,40 +36,42 @@ class App extends Component{
 
   setData(apiData){
     //console.log('IN SET DATA')
-    apiData.forEach(tweet => 
+    apiData.forEach(tweet =>{ 
       console.log(tweet["party"])
-      if (tweet["party"] === "GOP"){
-        this.demTweetCounter ++
+      if (tweet["party"].toString() === "GOP"){
+        this.state.repTweetCounter ++
+        console.log(this.state.repTweetCounter)
         this.setState(
-          this.dataRep = [
-          { x: 1, y: ( anger + tweet["tone_anger"])/this.demTweetCounter},
-          { x: 2, y: (fear + tweet["tone_fear"])/demTweetCounter},
-          { x: 3, y: (joy + tweet["tone_joy"]/ demTweetCounter)},
-          { x: 4, y: (sadness + tweet["tone_sadness"])/ demTweetCounter},
-          { x: 5, y: (analytic + tweet["tone_analytic"])/demTweetCounter}, 
-          { x: 6, y: (confident + tweet["tone_confident"])/ demTweetCounter}, 
-          { x: 7, y: (tentative + tweet["tone_tentative"])/demTweetCounter}
+          this.state.dataRep = [
+          { x: 1, y: ( this.state.dataRep[1] + tweet["tone_anger"])/this.repTweetCounter},
+          { x: 2, y: (this.state.dataRep[2] + tweet["tone_fear"])/this.state.repTweetCounter},
+          { x: 3, y: (this.state.dataRep[3] + tweet["tone_joy"]/ this.state.repTweetCounter)},
+          { x: 4, y: (this.state.dataRep[4] + tweet["tone_sadness"])/ this.repTweetCounter},
+          { x: 5, y: (this.state.dataRep[5] + tweet["tone_analytic"])/this.repTweetCounter}, 
+          { x: 6, y: (this.state.dataRep[6] + tweet["tone_confident"])/ this.repTweetCounter}, 
+          { x: 7, y: (this.state.dataRep[7] + tweet["tone_tentative"])/this.repTweetCounter}
         ])
+        console.log(this.state.dataRep)
       }
-        console.log("REP DATA 🦅🦅🦏🦏🦏🦏🇺🇸🇺🇸🇺🇸🇺🇸**********************************************************************************", this.dataRep)
-      if (tweet["party"] === "DEM"){
-        this.repTweetCounter ++
+        
+      if (tweet["party"].toString() === "DEM"){
+        this.state.demTweetCounter ++
+        console.log(this.state.demTweetCounter)
         this.setState(
-          this.dataDem = [
-          { x: 1, y: tweet["tone_anger"]},
-          { x: 2, y: tweet["tone_fear"]},
-          { x: 3, y: tweet["tone_joy"]},
-          { x: 4, y: tweet["tone_sadness"]},
-          { x: 5, y: tweet["tone_analytic"]}, 
-          { x: 6, y: tweet["tone_confident"]}, 
-          { x: 7, y: tweet["tone_tentative"]}
-          ]
-        )
-        console.log("DEM DATA 🦅🦅🐐🐐🐐🐐🇺🇸🇺🇸🇺🇸🇺🇸**********************************************************************************", this.dataDem)
-
+          this.state.dataDem = [
+            { x: 1, y: ( this.state.dataDem[1] + tweet["tone_anger"])/this.state.demTweetCounter},
+            { x: 2, y: (this.state.dataDem[2] + tweet["tone_fear"])/this.state.demTweetCounter},
+            { x: 3, y: (this.state.dataDem[3] + tweet["tone_joy"]/ this.state.demTweetCounter)},
+            { x: 4, y: (this.state.dataDem[4] + tweet["tone_sadness"])/ this.state.demTweetCounter},
+            { x: 5, y: (this.state.dataDem[5] + tweet["tone_analytic"])/this.state.demTweetCounter}, 
+            { x: 6, y: (this.state.dataDem[6] + tweet["tone_confident"])/ this.state.demTweetCounter}, 
+            { x: 7, y: (this.state.dataDem[7] + tweet["tone_tentative"])/this.state.demTweetCounter}
+          ])
+          console.log(this.state.dataDem)
+        }
       }
       );
-      }     
+    }     
 
  
   getData(){
