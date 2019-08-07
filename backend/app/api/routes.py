@@ -189,5 +189,6 @@ def report():
 def get_all_tone_tweets(tone):
     query_param = request.url.split('/')[-1]
     tweets = str([tweet.to_dict() for tweet in Tweet.query.filter(getattr(Tweet, query_param) >= 0.4)])
-    print(tweets)
+    print(tweets.split('person')[1].split('tweet')[0].split("'")[2])
+    print(tweets.split('person')[1].split('tweet')[1].split("'")[2])
     return tweets
