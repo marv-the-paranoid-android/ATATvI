@@ -21,6 +21,8 @@ class Graph extends Component {
       data: props.data,
       color: props.color
     }
+    console.log("in graph, just props "+JSON.stringify(props))
+    console.log("in graph, props.data "+JSON.stringify(props.data))
   }
 
   render(){
