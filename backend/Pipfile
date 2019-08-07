@@ -21,7 +21,7 @@ flask-httpauth = "*"
 flask-login = "*"
 httpie-jwt-auth = "*"
 gunicorn = "*"
-yarn = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
