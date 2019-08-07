@@ -191,3 +191,5 @@ def get_all_tentative_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]
     print(tweets)
     return tweets
+
+#TODO make one dynamic function to replace the repition in the above GETs  
