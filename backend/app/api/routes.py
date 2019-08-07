@@ -129,7 +129,6 @@ def report():
     
     dem_tweet_count = 0
     rep_tweet_count = 0
-    #print(data_dem_query[0])
 
     return_dict =  {
              "parties": [
@@ -206,14 +205,8 @@ def report():
         
         if tweet_dict['tone_tentative']: 
             return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count
-
-    
-
-    print(return_dict)         
-    print(dem_tweet_count)    
-    
    
-    return "jsonify(data_dem_query)"
+    return jsonify(return_dict)
 
 @bp.route('/tweets/anger', methods=['GET'])
 def get_all_angry_tweets():
