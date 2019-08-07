@@ -126,7 +126,7 @@ def process_dowork(id):
 def report():
     data_dem_query = Tweet.query.filter_by(status=2, party='Democrat').all()
     data_rep_query = Tweet.query.filter_by(status=2, party='Republican').all()
-    #print(jsonify(data_dem_query))
+    print(jsonify(data_dem_query))
     #print(jsonify(data_rep_query))
     print(type(Tweet.query))
     #print(dir(data_rep_query))
