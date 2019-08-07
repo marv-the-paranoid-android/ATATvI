@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import text
 load_dotenv()
 db = SQLAlchemy()
 migrate = Migrate()
@@ -16,17 +15,10 @@ def create_app(ConfigClass):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    try:
-        engine = db.engine
-        conn = engine.connect()
-        print(f'conn:[{conn}]')
-    except:
-        print('Execept')
-
-
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
     with app.app_context():
         # Dunno about this.. but it is here from other projects
+
         return app

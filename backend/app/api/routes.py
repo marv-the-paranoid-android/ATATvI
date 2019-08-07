@@ -1,10 +1,12 @@
 from flask import jsonify, request, Response
 from sqlalchemy.sql import text
+from sqlalchemy.orm import scoped_session, sessionmaker
 from app import db
-from app.models import Tweet
+from app.models import Tweet, Processed
 from app.api import bp
 from app.api.errors import bad_request
 from app.components.watson import Watson
+from app.components.consts import StatusCodes
 import json
 
 
@@ -37,27 +39,33 @@ def tweet_create():
 
 
 @bp.route('/process/getpending', methods=['GET'])
-def getpending():
+def process_getpending():
+
+    # Create new Session
+    Session = sessionmaker(bind=db.engine, autocommit=True)
+    session = Session()
+    print(f'session:[{session}]')
 
     # TEST
-    result = db.engine.execute(text("select count(*) cnt from tweet").execution_options(autocommit=True))
+    result = session.execute(text("select count(*) cnt from tweet"))
     print(f'result:[{result}]')
 
 
     # Find the party with the least # scored tweets
-    rs = db.engine.execute(
-        f'select party, count(*) cnt from tweet where status=="{2}" group by party order by cnt'
+    rs = session.execute(
+        f'select party, count(*) cnt from tweet where status=="{StatusCodes.QUEUED}" group by party order by cnt'
     )
-    if len(rs) == 0:
+    if rs.rowcount == 0:
         return bad_request('Nothing Pending')
-    party = rs[0]['party']
+    row = rs.fetchone()
+    party = row['party']
 
     # Find a tweet
 
     # Find a person to processed, in which it meets the target party
     # left join with processed and get first record ordered by
     # numprocessed (nothing will be null)
-    rs = conn.execute(
+    rs = session.execute(
         'select t.person, ifnull(p.numprocessed,0), count(*) from tweet t ' +
         'left join processed p ' +
         'on t.person = p.person ' +
@@ -66,27 +74,48 @@ def getpending():
         'order by p.numprocessed ' +
         'limit 1 '
     )
-    if len(rs) == 0:
+    if rs.rowcount == 0:
         return bad_request('Nothing Pending. party')
-    person = rs[0]['person']
+    row = rs.fetchone()
+    person = row['person']
 
     # Get an unprocessed tweet for Party and Person
-    rs = conn.execute(
+    rs = session.execute(
         f'select id from tweet where party="{party}" and person="{person}" and status="{0}" '
     )
-    if len(rs) == 0:
+    if rs.rowcount == 0:
         return bad_request(f'Nothing pending. party="{party}" and person="{person}"')
-    id = rs[0]['id']
+    row = rs.fetchone()
+    id = row['id']
+
+    print(f'party:[{party}]')
+    print(f'person:[{person}]')
+    print(f'id:[{id}]')
+
 
     # Process Tweet
     # hit the end point?
 
+
+    return jsonify(None)
+
+    """
     # Add or Inc counter in processed
-    rs = conn.execute(
-        f'update processed set numprocessed=numprocessed+1 where person="{person}" '
-    )
-    if rs.rowcount == 0:
-        rs = conn.execute(f'insert into processed (person, numprocessed) values ("{person}", 1)')
+    # Via the ORM
+    processed = Processed.query.filter_by(person=person).first()
+    if processed is None:
+        processed = Processed(person=person, numprocessed=1)
+    else:
+        processed.numprocessed += 1
+    db.session.add(processed)
+    db.session.commit()
+    # Via SQL
+    # rs = db.engine.execute(
+    #     f'update processed set numprocessed=numprocessed+1 where person="{person}" '
+    # )
+    # if rs.rowcount == 0:
+    #     rs = db.engine.execute(f'insert into processed (person, numprocessed) values ("{person}", 1)')
+    # db.engine.commit()
 
     # Load the Tweet Record (changed) and return it
     tweet = Tweet.query.filter_by(id=id).first()
@@ -94,7 +123,7 @@ def getpending():
         return bad_request(f'Unable to load TweetID:[{id}]')
 
     return jsonify(tweet.to_dict())
-
+    """
 
 @bp.route('/process/setstatus/<int:id>', methods=['PUT'])
 def process_setstatus(id):
