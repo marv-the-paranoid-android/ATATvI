@@ -124,31 +124,47 @@ def process_dowork(id):
 
 @bp.route('/report', methods=['GET'])
 def report():
-    data = {
-        "parties": [
-            {
-                "party"     : "GOP",  # noqa: E203
-                "anger"     : 0.75,   # noqa: E203
-                "fear"      : 0.69,   # noqa: E203
-                "joy"       : 0.00,   # noqa: E203
-                "sadness"   : 0.88,   # noqa: E203
-                "analytic"  : 0.10,   # noqa: E203
-                "confident" : 0.51,   # noqa: E203
-                "tentative" : 0.22    # noqa: E203
-            },
-            {
-                "party"     : "DEM",  # noqa: E203
-                "anger"     : 0.10,   # noqa: E203
-                "fear"      : 0.11,   # noqa: E203
-                "joy"       : 0.70,   # noqa: E203
-                "sadness"   : 0.51,   # noqa: E203
-                "analytic"  : 0.52,   # noqa: E203
-                "confident" : 0.49,   # noqa: E203
-                "tentative" : 0.53    # noqa: E203
-            }
-        ]
-    }
-    return jsonify(data)
+    data_dem_query = Tweet.query.filter_by(status=2, party='Democrat').all()
+    data_rep_query = Tweet.query.filter_by(status=2, party='Republican').all()
+    print(jsonify(data_dem_query))
+    print(jsonify(data_rep_query))
+    print(data_dem_query)
+    print(dir(data_rep_query))
+    
+
+    for tweet in data_dem_query: 
+         print('here!!')
+         print(tweet)
+    
+
+     
+
+
+     #{
+    #     "parties": [
+    #         {
+    #             "party"     : "GOP",  # noqa: E203
+    #             "anger"     : 0.75,   # noqa: E203
+    #             "fear"      : 0.69,   # noqa: E203
+    #             "joy"       : 0.00,   # noqa: E203
+    #             "sadness"   : 0.88,   # noqa: E203
+    #             "analytic"  : 0.10,   # noqa: E203
+    #             "confident" : 0.51,   # noqa: E203
+    #             "tentative" : 0.22    # noqa: E203
+    #         },
+    #         {
+    #             "party"     : "DEM",  # noqa: E203
+    #             "anger"     : 0.10,   # noqa: E203
+    #             "fear"      : 0.11,   # noqa: E203
+    #             "joy"       : 0.70,   # noqa: E203
+    #             "sadness"   : 0.51,   # noqa: E203
+    #             "analytic"  : 0.52,   # noqa: E203
+    #             "confident" : 0.49,   # noqa: E203
+    #             "tentative" : 0.53    # noqa: E203
+    #         }
+    #     ]
+    # }
+    return jsonify(data_dem_query)
 
 @bp.route('/tweets/anger', methods=['GET'])
 def get_all_angry_tweets():
