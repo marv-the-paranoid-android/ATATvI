@@ -126,21 +126,19 @@ def process_dowork(id):
 def report():
     data_dem_query = Tweet.query.filter_by(status=2, party='Democrat').all()
     data_rep_query = Tweet.query.filter_by(status=2, party='Republican').all()
-    print(jsonify(data_dem_query))
-    print(jsonify(data_rep_query))
-    print(data_dem_query)
-    print(dir(data_rep_query))
-    
+    #print(jsonify(data_dem_query))
+    #print(jsonify(data_rep_query))
+    print(type(Tweet.query))
+    #print(dir(data_rep_query))
+    dem_tweet_count = 0
+    #print(data_dem_query[0])
 
     for tweet in data_dem_query: 
-         print('here!!')
-         print(tweet)
+        dem_tweet_count += 1
     
-
-     
-
-
-     #{
+    print(dem_tweet_count)    
+    
+    #{
     #     "parties": [
     #         {
     #             "party"     : "GOP",  # noqa: E203
@@ -164,7 +162,7 @@ def report():
     #         }
     #     ]
     # }
-    return jsonify(data_dem_query)
+    return "jsonify(data_dem_query)"
 
 @bp.route('/tweets/anger', methods=['GET'])
 def get_all_angry_tweets():
