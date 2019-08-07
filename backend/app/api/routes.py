@@ -126,42 +126,61 @@ def process_dowork(id):
 def report():
     data_dem_query = Tweet.query.filter_by(status=2, party='Democrat').all()
     data_rep_query = Tweet.query.filter_by(status=2, party='Republican').all()
-    print(jsonify(data_dem_query))
+    print(data_dem_query)
     #print(jsonify(data_rep_query))
     print(type(Tweet.query))
-    #print(dir(data_rep_query))
+    
     dem_tweet_count = 0
     #print(data_dem_query[0])
 
+    return_dict =  {
+             "parties": [
+                 {
+                     "party"     : "GOP",  # noqa: E203
+                     "anger"     : 0,   # noqa: E203
+                     "fear"      : 0,   # noqa: E203
+                     "joy"       : 0,   # noqa: E203
+                     "sadness"   : 0,   # noqa: E203
+                     "analytic"  : 0,   # noqa: E203
+                     "confident" : 0,   # noqa: E203
+                     "tentative" : 0    # noqa: E203
+                 },
+                 {
+                     "party"     : "DEM",  # noqa: E203
+                     "anger"     : 0,   # noqa: E203
+                     "fear"      : 0,   # noqa: E203
+                     "joy"       : 0,   # noqa: E203
+                     "sadness"   : 0,   # noqa: E203
+                     "analytic"  : 0,   # noqa: E203
+                     "confident" : 0,   # noqa: E203
+                     "tentative" : 0    # noqa: E203
+                }
+             ]
+         }
+
+    
     for tweet in data_dem_query: 
         dem_tweet_count += 1
+        tweet_dict = tweet.to_dict()
+        
+        if tweet_dict['tone_anger']:
+            return_dict['parties'][1]['anger'] = (return_dict['parties'][1]['anger'] + tweet_dict['tone_anger'])/dem_tweet_count
+        
+        if tweet_dict['tone_fear']: 
+            return_dict['parties'][1]['fear'] = (return_dict['parties'][1]['fear'] + tweet_dict['tone_anger'])/dem_tweet_count     
+            
+        # return_dict['parties'][1]['fear']
+        # return_dict['parties'][1]['joy']
+        # return_dict['parties'][1]['sadness']
+        # return_dict['parties'][1]['analytic']
+        # return_dict['parties'][1]['confident']
+        # return_dict['parties'][1]['tentative']
     
+
+    print(return_dict)         
     print(dem_tweet_count)    
     
-    #{
-    #     "parties": [
-    #         {
-    #             "party"     : "GOP",  # noqa: E203
-    #             "anger"     : 0.75,   # noqa: E203
-    #             "fear"      : 0.69,   # noqa: E203
-    #             "joy"       : 0.00,   # noqa: E203
-    #             "sadness"   : 0.88,   # noqa: E203
-    #             "analytic"  : 0.10,   # noqa: E203
-    #             "confident" : 0.51,   # noqa: E203
-    #             "tentative" : 0.22    # noqa: E203
-    #         },
-    #         {
-    #             "party"     : "DEM",  # noqa: E203
-    #             "anger"     : 0.10,   # noqa: E203
-    #             "fear"      : 0.11,   # noqa: E203
-    #             "joy"       : 0.70,   # noqa: E203
-    #             "sadness"   : 0.51,   # noqa: E203
-    #             "analytic"  : 0.52,   # noqa: E203
-    #             "confident" : 0.49,   # noqa: E203
-    #             "tentative" : 0.53    # noqa: E203
-    #         }
-    #     ]
-    # }
+   
     return "jsonify(data_dem_query)"
 
 @bp.route('/tweets/anger', methods=['GET'])
