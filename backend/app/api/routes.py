@@ -1,6 +1,5 @@
 from flask import jsonify, request, Response
 from app import db
-from wsgi import app
 from app.models import Tweet
 from app.api import bp
 from app.api.errors import bad_request
@@ -150,3 +149,47 @@ def report():
         ]
     }
     return jsonify(data)
+
+@bp.route('/tweets/anger', methods=['GET'])
+def get_all_angry_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/fear', methods=['GET'])
+def get_all_fear_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/joy', methods=['GET'])
+def get_all_joy_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/sadness', methods=['GET'])
+def get_all_sadness_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/analytic', methods=['GET'])
+def get_all_analytic_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/confident', methods=['GET'])
+def get_all_confident_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]
+    print(tweets)
+    return tweets
+
+@bp.route('tweets/tentative', methods=['GET'])
+def get_all_tentative_tweets():
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]
+    print(tweets)
+    return tweets
+
+#TODO make one dynamic function to replace the repition in the above GETs  
