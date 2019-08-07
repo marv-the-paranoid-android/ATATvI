@@ -29,73 +29,89 @@ class App extends Component{
     ],
       demTweetCounter: 0,
       repTweetCounter: 0,
-      color: "#ccccff"
+      color: "#ccccff",
+      set: 0,
+
+      dummyData: [
+       { x: 1, y: 2},
+       { x: 2, y: 3},
+       { x: 3, y: 5},
+       { x: 4, y: 4},
+       { x: 5, y: 6}, 
+       { x: 6, y: 6}, 
+       { x: 7, y: 1}
+      ]
     }
+
+
   }
 
   setData(apiData){
     //console.log('IN SET DATA')
+    var curstate = this.state
     apiData.forEach(tweet =>{ 
       console.log(tweet["party"])
       if (tweet["party"].toString() === "GOP"){
-        this.state.repTweetCounter ++
+        curstate.repTweetCounter ++
         
-        this.setState(
-          this.state.dataRep = [
-          { x: 1, y: ( this.state.dataRep[0]["y"] + tweet["anger"])/this.repTweetCounter},
-          { x: 2, y: (this.state.dataRep[1]["y"] + tweet["fear"])/this.state.repTweetCounter},
-          { x: 3, y: (this.state.dataRep[2]["y"] + tweet["joy"]/ this.state.repTweetCounter)},
-          { x: 4, y: (this.state.dataRep[3]["y"] + tweet["sadness"])/ this.repTweetCounter},
-          { x: 5, y: (this.state.dataRep[4]["y"] + tweet["analytic"])/this.repTweetCounter}, 
-          { x: 6, y: (this.state.dataRep[5]["y"] + tweet["confident"])/ this.repTweetCounter}, 
-          { x: 7, y: (this.state.dataRep[6]["y"] + tweet["tentative"])/this.repTweetCounter}
-        ])
-        //console.log("whole object"+ this.state.dataRep)
-        //console.log("one line of obj"+ this.state.dataRep[1]["y"])
+        
+          curstate.dataRep = [
+          { x: 1, y: ( curstate.dataRep[0]["y"] + tweet["anger"])/curstate.repTweetCounter},
+          { x: 2, y: (curstate.dataRep[1]["y"] + tweet["fear"])/curstate.repTweetCounter},
+          { x: 3, y: (curstate.dataRep[2]["y"] + tweet["joy"]/ curstate.repTweetCounter)},
+          { x: 4, y: (curstate.dataRep[3]["y"] + tweet["sadness"])/ curstate.repTweetCounter},
+          { x: 5, y: (curstate.dataRep[4]["y"] + tweet["analytic"])/curstate.repTweetCounter}, 
+          { x: 6, y: (curstate.dataRep[5]["y"] + tweet["confident"])/ curstate.repTweetCounter}, 
+          { x: 7, y: (curstate.dataRep[6]["y"] + tweet["tentative"])/curstate.repTweetCounter}
+        ]
+        //console.log("whole object"+ curstate.dataRep)
+        //console.log("one line of obj"+ curstate.dataRep[1]["y"])
         console.log("one line from the tweet data" + tweet["anger"])
-        console.log("tweet counter" + this.state.repTweetCounter)
+        console.log("tweet counter" + curstate.repTweetCounter)
       }
         
       if (tweet["party"].toString() === "DEM"){
-        this.state.demTweetCounter ++
-        this.setState(
-          this.state.dataDem = [
-            { x: 1, y: ( this.state.dataDem[0]["y"] + tweet["anger"])/this.state.demTweetCounter},
-            { x: 2, y: (this.state.dataDem[1]["y"] + tweet["fear"])/this.state.demTweetCounter},
-            { x: 3, y: (this.state.dataDem[2]["y"] + tweet["joy"])/ this.state.demTweetCounter},
-            { x: 4, y: (this.state.dataDem[3]["y"] + tweet["sadness"])/ this.state.demTweetCounter},
-            { x: 5, y: (this.state.dataDem[4]["y"] + tweet["analytic"])/this.state.demTweetCounter}, 
-            { x: 6, y: (this.state.dataDem[5]["y"] + tweet["confident"])/ this.state.demTweetCounter}, 
-            { x: 7, y: (this.state.dataDem[6]["y"] + tweet["tentative"])/this.state.demTweetCounter}
-          ])
+        curstate.demTweetCounter ++
+       
+          curstate.dataDem = [
+            { x: 1, y: ((curstate.dataDem[0]["y"] + tweet["anger"])/curstate.demTweetCounter)*100},
+            { x: 2, y: ((curstate.dataDem[1]["y"] + tweet["fear"])/curstate.demTweetCounter)*100},
+            { x: 3, y: ((curstate.dataDem[2]["y"] + tweet["joy"])/ curstate.demTweetCounter)*100},
+            { x: 4, y: ((curstate.dataDem[3]["y"] + tweet["sadness"])/ curstate.demTweetCounter)*100},
+            { x: 5, y: ((curstate.dataDem[4]["y"] + tweet["analytic"])/curstate.demTweetCounter)*100}, 
+            { x: 6, y: ((curstate.dataDem[5]["y"] + tweet["confident"])/ curstate.demTweetCounter)*100},
+            { x: 7, y: ((curstate.dataDem[6]["y"] + tweet["tentative"])/curstate.demTweetCounter)*100}
+          ]
         }
       }
       );
+
+      this.setState(curstate)
+      console.log(curstate)
     }     
 
  
   getData(){
-    let self = this
+    //let self = this
     //TODO: refactor to env
     const url = 'http://localhost:5000'
     //'https://atatvi.onrender.com'
     //const axios = require('axios')
     
     axios.get(url+'/api/v1/report')
-      .then(function (response){
+      .then((response => {
         console.log('in getData above setData'+ JSON.stringify(response))
         // console.log(response.data.parties)
-        self.setData(response.data.parties)
-       
+        this.setData(response.data.parties)
+       console.log(this.state)
        //console.log('under set data in get data'+ JSON.stringify(response))
       })
+      )
       .catch(function(error){
         console.log(error)
       })
-      .finally(function(){
-        //TODO: DO we need a finally? 
-      })
-  }
+      
+      }
 
   setColor(){
 
@@ -103,16 +119,21 @@ class App extends Component{
   }
 
   componentDidMount(){
-    this.getData()
+    // this.getData()
+    console.log('in did mount')
   }
 
   render(){
+    if(this.state.set === 0){
+      this.getData()
+      this.setState({set : 1})
+    }
     
     return (
      <div className="App">
         <Graph data={this.state.dataDem} color={this.state.color}/>
-        
         <Graph data={this.state.dataRep} color={this.state.color}/>
+        <Graph data={this.state.dummyData} color={this.state.color}/>
         
      </div>
    );
