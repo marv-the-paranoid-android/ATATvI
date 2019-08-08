@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Graph from './components/graph.js';
 import './App.css';
 
-
 require('dotenv').config()
 
 
@@ -19,6 +18,7 @@ class App extends Component{
             </div>
         );
     }
+
 }
 
 export default App;

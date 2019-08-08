@@ -8,7 +8,6 @@ from flask_cors import CORS
 db = SQLAlchemy()
 migrate = Migrate()
 
-
 def create_app(ConfigClass):
 
     app = Flask(__name__)
