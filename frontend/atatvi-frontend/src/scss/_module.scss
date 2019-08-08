@@ -1,11 +1,9 @@
-  .App{
-      
-  }
 
   .Header{
     box-sizing: border-box;
     background: #252525;
     padding: 150px;
+    margin-bottom: 100px;
    
     color:rgb(19, 11, 11);
     height: 50vh;
@@ -57,7 +55,6 @@
 
   .graph {
     height: 100%;
-    // margin: 100px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
