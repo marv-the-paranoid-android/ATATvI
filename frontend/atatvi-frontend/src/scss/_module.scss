@@ -3,19 +3,20 @@
     box-sizing: border-box;
     background: #252525;
     padding: 150px;
+    padding-top: 30px;
     margin-bottom: 100px;
    
     color:rgb(19, 11, 11);
-    height: 50vh;
+    height: 40vh;
     position: relative;
     overflow: hidden;
 
   }
   .Header:after{
-    overflow: hidden;
+    // overflow: hidden;
     size:120px;
     content:"";
-    height: 30vh;
+    height: 20vh;
     width: 100%;
   background-image: linear-gradient( $gradient);
     position: absolute;
@@ -30,7 +31,6 @@
   }
   h1 {
     text-align:center;
-    position: relative;
     font-size: 100px;
     z-index: 3;
   }
@@ -81,7 +81,9 @@
 }
 
 .nlp{
-    font-size: 50px;
     display: block;
     z-index: 3;
+    width: 500px;
+    padding-top: 5vh;
+    margin: 0 auto;
 }
