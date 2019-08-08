@@ -1,14 +1,16 @@
-from flask import jsonify, request, Response
-from sqlalchemy.sql import text
-from sqlalchemy.orm import scoped_session, sessionmaker
+from flask import jsonify, request
 from app import db
-from app.models import Tweet, Processed
+from app.models import Tweet
 from app.api import bp
 from app.api.errors import bad_request
 from app.components.watson import Watson
 from app.components.consts import StatusCodes
 import json
+# from sqlalchemy.orm import scoped_session, sessionmaker
+# from sqlalchemy.sql import text
 
+
+# this is a test
 
 @bp.route('/tweets', methods=['GET'])
 def tweet_getall():
@@ -49,16 +51,11 @@ def process_getpending():
     session.rollback()
 
     # TEST
-    try:
-        result = session.execute(text("select count(*) cnt from tweet"))
-        print(f'result:[{result}]')
-    except:
-        print('EXCEPT')
-
+    # result = session.execute(text("select count(*) cnt from tweet"))
 
     # Find the party with the least # scored tweets
     rs = session.execute(
-        f'select party, count(*) cnt from tweet where status=="{StatusCodes.QUEUED}" group by party order by cnt'
+        f'select party, count(*) cnt from tweet where status=="{StatusCodes.QUEUED}" group by party order by cnt'  # noqa: E501
     )
     if rs.rowcount == 0:
         return bad_request('Nothing Pending')
@@ -87,10 +84,10 @@ def process_getpending():
 
     # Get an unprocessed tweet for Party and Person
     rs = session.execute(
-        f'select id from tweet where party="{party}" and person="{person}" and status="{0}" '
+        f'select id from tweet where party="{party}" and person="{person}" and status="{0}" '  # noqa: E501
     )
     if rs.rowcount == 0:
-        return bad_request(f'Nothing pending. party="{party}" and person="{person}"')
+        return bad_request(f'Nothing pending. party="{party}" and person="{person}"')  # noqa: E501
     row = rs.fetchone()
     id = row['id']
 
@@ -98,10 +95,8 @@ def process_getpending():
     print(f'person:[{person}]')
     print(f'id:[{id}]')
 
-
     # Process Tweet
     # hit the end point?
-
 
     return jsonify(None)
 
@@ -117,7 +112,7 @@ def process_getpending():
     db.session.commit()
     # Via SQL
     # rs = db.engine.execute(
-    #     f'update processed set numprocessed=numprocessed+1 where person="{person}" '
+    #     f'update processed set numprocessed=numprocessed+1 where person="{person}" '   # noqa: 501
     # )
     # if rs.rowcount == 0:
     #     rs = db.engine.execute(f'insert into processed (person, numprocessed) values ("{person}", 1)')
@@ -130,6 +125,7 @@ def process_getpending():
 
     return jsonify(tweet.to_dict())
     """
+
 
 @bp.route('/process/setstatus/<int:id>', methods=['PUT'])
 def process_setstatus(id):
@@ -196,6 +192,11 @@ def process_dowork(id):
             # rec:[{'score': 0.766478, 'tone_id': 'sadness', 'tone_name': 'Sadness'}]  # noqa: E501
             if 'tone_id' in rec:
                 tone_id = 'tone_' + rec['tone_id']
+
+                # Shoot, I had it wrong in Datamodel, lots of tweets without it
+                if tone_id == 'tone_analytical':
+                    tone_id = 'tone_analytic'
+
                 setattr(tweet, tone_id, rec['score'])
                 success = True
 
@@ -214,11 +215,11 @@ def process_dowork(id):
 def report():
     data_dem_query = Tweet.query.filter_by(status=2, party='Democrat').all()
     data_rep_query = Tweet.query.filter_by(status=2, party='Republican').all()
-    
+
     dem_tweet_count = 0
     rep_tweet_count = 0
 
-    return_dict =  {
+    return_dict = {
              "parties": [
                  {
                      "party"     : "GOP",  # noqa: E203
@@ -243,99 +244,105 @@ def report():
              ]
          }
 
-    
-    for tweet in data_dem_query: 
+    for tweet in data_dem_query:
         dem_tweet_count += 1
         tweet_dict = tweet.to_dict()
-        
-        if tweet_dict['tone_anger']:
-            return_dict['parties'][1]['anger'] = (return_dict['parties'][1]['anger'] + tweet_dict['tone_anger'])/dem_tweet_count
-        
-        if tweet_dict['tone_fear']: 
-            return_dict['parties'][1]['fear'] = (return_dict['parties'][1]['fear'] + tweet_dict['tone_fear'])/dem_tweet_count     
-        
-        if tweet_dict['tone_joy']: 
-            return_dict['parties'][1]['joy'] = (return_dict['parties'][1]['joy'] + tweet_dict['tone_joy'])/dem_tweet_count    
-      
-        if tweet_dict['tone_sadness']: 
-            return_dict['parties'][1]['sadness'] = (return_dict['parties'][1]['sadness'] + tweet_dict['tone_sadness'])/dem_tweet_count    
-        
-        if tweet_dict['tone_analytic']: 
-            return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['analytic'] + tweet_dict['tone_analytic'])/dem_tweet_count
 
-        if tweet_dict['tone_confident']: 
-            return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count
-        
-        if tweet_dict['tone_tentative']: 
-            return_dict['parties'][1]['tentative'] = (return_dict['parties'][1]['tentative'] + tweet_dict['tone_tentative'])/dem_tweet_count
-    
-    for tweet in data_rep_query: 
+        if tweet_dict['tone_anger']:
+            return_dict['parties'][1]['anger'] = (return_dict['parties'][1]['anger'] + tweet_dict['tone_anger'])/dem_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_fear']:
+            return_dict['parties'][1]['fear'] = (return_dict['parties'][1]['fear'] + tweet_dict['tone_fear'])/dem_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_joy']:
+            return_dict['parties'][1]['joy'] = (return_dict['parties'][1]['joy'] + tweet_dict['tone_joy'])/dem_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_sadness']:
+            return_dict['parties'][1]['sadness'] = (return_dict['parties'][1]['sadness'] + tweet_dict['tone_sadness'])/dem_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_analytic']:
+            return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['analytic'] + tweet_dict['tone_analytic'])/dem_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_confident']:
+            return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_tentative']:
+            return_dict['parties'][1]['tentative'] = (return_dict['parties'][1]['tentative'] + tweet_dict['tone_tentative'])/dem_tweet_count  # noqa: E501
+
+    for tweet in data_rep_query:
         rep_tweet_count += 1
-        tweet_dict = tweet.to_dict()   
+        tweet_dict = tweet.to_dict()
 
         if tweet_dict['tone_anger']:
-            return_dict['parties'][0]['anger'] = (return_dict['parties'][0]['anger'] + tweet_dict['tone_anger'])/rep_tweet_count
-        
-        if tweet_dict['tone_fear']: 
-            return_dict['parties'][0]['fear'] = (return_dict['parties'][0]['fear'] + tweet_dict['tone_fear'])/rep_tweet_count     
-        
-        if tweet_dict['tone_joy']: 
-            return_dict['parties'][0]['joy'] = (return_dict['parties'][0]['joy'] + tweet_dict['tone_joy'])/rep_tweet_count    
-      
-        if tweet_dict['tone_sadness']: 
-            return_dict['parties'][0]['sadness'] = (return_dict['parties'][0]['sadness'] + tweet_dict['tone_sadness'])/rep_tweet_count    
-        
-        if tweet_dict['tone_analytic']: 
-            return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['analytic'] + tweet_dict['tone_analytic'])/rep_tweet_count
+            return_dict['parties'][0]['anger'] = (return_dict['parties'][0]['anger'] + tweet_dict['tone_anger'])/rep_tweet_count  # noqa: E501
 
-        if tweet_dict['tone_confident']: 
-            return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count
-        
-        if tweet_dict['tone_tentative']: 
-            return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count
-   
+        if tweet_dict['tone_fear']:
+            return_dict['parties'][0]['fear'] = (return_dict['parties'][0]['fear'] + tweet_dict['tone_fear'])/rep_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_joy']:
+            return_dict['parties'][0]['joy'] = (return_dict['parties'][0]['joy'] + tweet_dict['tone_joy'])/rep_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_sadness']:
+            return_dict['parties'][0]['sadness'] = (return_dict['parties'][0]['sadness'] + tweet_dict['tone_sadness'])/rep_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_analytic']:
+            return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['analytic'] + tweet_dict['tone_analytic'])/rep_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_confident']:
+            return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count  # noqa: E501
+
+        if tweet_dict['tone_tentative']:
+            return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count  # noqa: E501
+
     return jsonify(return_dict)
+
 
 @bp.route('/tweets/anger', methods=['GET'])
 def get_all_angry_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]  # noqa: E501
     print(tweets)
     return tweets
+
 
 @bp.route('tweets/fear', methods=['GET'])
 def get_all_fear_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]  # noqa: E501
     print(tweets)
     return tweets
+
 
 @bp.route('tweets/joy', methods=['GET'])
 def get_all_joy_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]  # noqa: E501
     print(tweets)
     return tweets
+
 
 @bp.route('tweets/sadness', methods=['GET'])
 def get_all_sadness_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]  # noqa: E501
     print(tweets)
     return tweets
+
 
 @bp.route('tweets/analytic', methods=['GET'])
 def get_all_analytic_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]  # noqa: E501
     print(tweets)
     return tweets
+
 
 @bp.route('tweets/confident', methods=['GET'])
 def get_all_confident_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]  # noqa: E501
     print(tweets)
     return tweets
+
 
 @bp.route('tweets/tentative', methods=['GET'])
 def get_all_tentative_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]  # noqa: E501
     print(tweets)
     return tweets
 
-#TODO make one dynamic function to replace the repition in the above GETs  
+# TODO make one dynamic function to replace the repition in the above GETs
