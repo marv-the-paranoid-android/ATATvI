@@ -150,45 +150,9 @@ def report():
     }
     return jsonify(data)
 
-# @bp.route('/tweets/anger', methods=['GET'])
-# def get_all_angry_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]
-#     return jsonify(tweets)
-    
-# @bp.route('tweets/fear', methods=['GET'])
-# def get_all_fear_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]
-#     return jsonify(tweets)
-
-# @bp.route('tweets/joy', methods=['GET'])
-# def get_all_joy_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]
-#     return jsonify(tweets)
-
-# @bp.route('tweets/sadness', methods=['GET'])
-# def get_all_sadness_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]
-#     return jsonify(tweets)
-
-# @bp.route('tweets/analytic', methods=['GET'])
-# def get_all_analytic_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]
-#     return jsonify(tweets)
-
-# @bp.route('tweets/confident', methods=['GET'])
-# def get_all_confident_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]
-#     return jsonify(tweets)
-
-# @bp.route('tweets/tentative', methods=['GET'])
-# def get_all_tentative_tweets():
-#     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]
-#     return jsonify(tweets)
-
 @bp.route('tweets/<string:tone>', methods=['GET'])
 def get_all_tone_tweets(tone):
     query_param = request.url.split('/')[-1]
-    tweets = str([tweet.to_dict() for tweet in Tweet.query.filter(getattr(Tweet, query_param) >= 0.4)])
-    print(tweets.split('person')[1].split('tweet')[0].split("'")[2])
-    print(tweets.split('person')[1].split('tweet')[1].split("'")[2])
-    return tweets
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(getattr(Tweet, query_param) >= 0.4)]
+    formatted_tweets = [{'name':tweet['person'],'tweet':tweet['tweet']} for tweet in tweets]
+    return jsonify(formatted_tweets)
