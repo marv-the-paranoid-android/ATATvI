@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {VictoryArea, VictoryPolarAxis,VictoryChart, VictoryTheme} from 'victory';
+import {VictoryArea, VictoryPolarAxis,VictoryChart, VictoryTheme, VictoryBar} from 'victory';
 import axios from 'axios';
 
 // const testData = [
@@ -28,14 +28,14 @@ class Graph extends Component {
 
             counter: 0,
             data: [
-                { x: 1, y: 0},
-                { x: 2, y: 0},
-                { x: 3, y: 0},
-                { x: 4, y: 0},
-                { x: 5, y: 0},
-                { x: 6, y: 0},
-                { x: 7, y: 0},
-            ],
+                { x: 1, y: 0, label: ''},
+                { x: 2, y: 0, label: ''},
+                { x: 3, y: 0, label: ''},
+                { x: 4, y: 0, label: ''},
+                { x: 5, y: 0, label: ''},
+                { x: 6, y: 0, label: ''},
+                { x: 7, y: 0, label: ''},
+            ]
         }
     }
 
@@ -59,13 +59,13 @@ class Graph extends Component {
                 curstate.counter ++
 
                 curstate.data = [
-                    { x: 1, y: ((curstate.data[0]["y"] + rec["anger"])     / curstate.counter)*100},
-                    { x: 2, y: ((curstate.data[1]["y"] + rec["fear"])      / curstate.counter)*100},
-                    { x: 3, y: ((curstate.data[2]["y"] + rec["joy"])       / curstate.counter)*100},
-                    { x: 4, y: ((curstate.data[3]["y"] + rec["sadness"])   / curstate.counter)*100},
-                    { x: 5, y: ((curstate.data[4]["y"] + rec["analytic"])  / curstate.counter)*100},
-                    { x: 6, y: ((curstate.data[5]["y"] + rec["confident"]) / curstate.counter)*100},
-                    { x: 7, y: ((curstate.data[6]["y"] + rec["tentative"]) / curstate.counter)*100}
+                    { x: 1, y: ((curstate.data[0]["y"] + rec["anger"])     / curstate.counter)*100, label: ""},
+                    { x: 2, y: ((curstate.data[1]["y"] + rec["fear"])      / curstate.counter)*100, label: ""},
+                    { x: 3, y: ((curstate.data[2]["y"] + rec["joy"])       / curstate.counter)*100, label: ""},
+                    { x: 4, y: ((curstate.data[3]["y"] + rec["sadness"])   / curstate.counter)*100, label: ""},
+                    { x: 5, y: ((curstate.data[4]["y"] + rec["analytic"])  / curstate.counter)*100, label: ""},
+                    { x: 6, y: ((curstate.data[5]["y"] + rec["confident"]) / curstate.counter)*100, label: ""},
+                    { x: 7, y: ((curstate.data[6]["y"] + rec["tentative"]) / curstate.counter)*100, label: ""}
                 ]
             }
         });
@@ -103,34 +103,6 @@ class Graph extends Component {
                 theme={VictoryTheme.material}
                 height={200}
                 width={200}
-                events={[{
-                    childName: ['area'],
-                    target: "data",
-                    // eventKey: //this.props.oneOfType([
-                    //     "y",
-                        // CustomPropTypes.allOfType([CustomPropTypes.integer, CustomPropTypes.nonNegative]),
-                        // PropTypes.string
-                     // ]), 
-                    eventHandlers: {
-                        onClick: () => {
-                            return [{
-                            //   childName: ["area"],
-                               target : "parentChart",
-                               mutation: (props) => {
-
-                                   //return props.VictoryPolarAxis.tickValues === "clicked" ? null : {text: "clicked"}
-                                   console.log('clicked ' + )
-                                
-                                // return {
-                            
-                                  
-                                }
-
-                            //   }
-                             }];
-                          },
-                    }
-                }]}
             >
 
                 <VictoryPolarAxis
@@ -151,11 +123,34 @@ class Graph extends Component {
                 />
 
                 <VictoryArea
+                    
                     name = 'area'
-                    data={this.state.data}
+                    data= {this.state.data}
                     style={{data: {fill: this.state.color, width: 1}}}
                 />
 
+                <VictoryArea
+                    parseData={this.parseData(this.state.data)}
+                    style={{data: {fill: this.state.color, width: 1}}}
+                    data={this.state.data}
+                    events={[
+                    {
+                        target: "data",
+                        eventHandlers: {
+                        onClick: () => {
+                            return [{
+                            target: "labels",
+                            mutation: (props) => {
+                                return props.text === "clicked" ?
+                                null : { text: "clicked" }
+                            }
+                            }];
+                        }
+                        }
+                    }
+                    ]}
+                />
+                    
             </VictoryChart>
         );
     }
