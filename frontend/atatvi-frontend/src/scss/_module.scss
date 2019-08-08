@@ -4,7 +4,7 @@
     background: #252525;
     padding: 150px;
    
-    color:#fff;
+    color:rgb(19, 11, 11);
     height: 50vh;
     position: relative;
     overflow: hidden;
@@ -19,7 +19,7 @@
     content:"";
     height: 30vh;
     width: 100%;
-  background-image: linear-gradient(to right, #D9D8D6,  #E5E4E2, #F1F0ED, #E5FFFD, #B1F0F0, #B1F0F0, #B1F0F0, #B1F0F0, #E5FFFD, #F1F0ED, #00A6D7, #9BEAEC);
+  background-image: linear-gradient( #D9D8D6,  #E5E4E2, #E5FFFD, #B1F0F0, #B1F0F0, #B1F0F0, #B1F0F0, #E5FFFD, #F1F0ED);
     position: absolute;
     top:0;
     left:0;
@@ -38,17 +38,17 @@
   }
   @keyframes anim {
     0%{
-     background-image: linear-gradient(to right, #D9D8D6,  #E5E4E2, #F1F0ED, #E5FFFD, #B1F0F0, #B1F0F0, #B1F0F0, #B1F0F0, #E5FFFD, #F1F0ED, #00A6D7, #9BEAEC);
+     background-image: linear-gradient(to right, #D9D8D6,  #E5E4E2, #E5FFFD, #B1F0F0, #B1F0F0, #B1F0F0, #B1F0F0, #E5FFFD, #F1F0ED,);
   background-position: 0%;
   
     }
     50%{
-   background-image: linear-gradient(to right, #D9D8D6,  #E5E4E2, #F1F0ED, #E5FFFD, #B1F0F0, #B1F0F0, #B1F0F0, #B1F0F0, #E5FFFD, #F1F0ED, #00A6D7, #9BEAEC);
+   background-image: linear-gradient(to right, #D9D8D6,  #E5E4E2,#E5FFFD, #B1F0F0, #B1F0F0, #B1F0F0, #B1F0F0, #E5FFFD, #F1F0ED,);
         background-position: 600%;
        
     }
     100%{
-    background-image: linear-gradient(to right, #D9D8D6,  #E5E4E2, #F1F0ED, #E5FFFD, #B1F0F0, #B1F0F0, #B1F0F0, #B1F0F0, #E5FFFD, #F1F0ED, #00A6D7, #9BEAEC);
+    background-image: linear-gradient(to right, #D9D8D6,  #E5E4E2,  #E5FFFD, #B1F0F0, #B1F0F0, #B1F0F0, #B1F0F0, #E5FFFD, #F1F0ED,);
      background-position: 0%;
          
     }
