@@ -63,9 +63,9 @@ class Graph extends Component {
                     { x: 2, y: ((curstate.data[1]["y"] + rec["fear"])      / curstate.counter)*100},
                     { x: 3, y: ((curstate.data[2]["y"] + rec["joy"])       / curstate.counter)*100},
                     { x: 4, y: ((curstate.data[3]["y"] + rec["sadness"])   / curstate.counter)*100},
-                    { x: 5, y: ((curstate.data[4]["y"] + rec["analytic"])  / curstate.counter)*100},
-                    { x: 6, y: ((curstate.data[5]["y"] + rec["confident"]) / curstate.counter)*100},
-                    { x: 7, y: ((curstate.data[6]["y"] + rec["tentative"]) / curstate.counter)*100}
+                    //{ x: 5, y: ((curstate.data[4]["y"] + rec["analytic"])  / curstate.counter)*100},
+                    { x: 5, y: ((curstate.data[5]["y"] + rec["confident"]) / curstate.counter)*100},
+                    { x: 6, y: ((curstate.data[6]["y"] + rec["tentative"]) / curstate.counter)*100}
                 ]
             }
         });
@@ -98,7 +98,7 @@ class Graph extends Component {
         return(
             <VictoryChart
                 polar
-                domain={{x: [0, 7]}}
+                domain={{x: [0, 6]}}
                 theme={VictoryTheme.material}
                 height={200}
                 width={200}
@@ -112,12 +112,11 @@ class Graph extends Component {
                         axis: {stroke: "none"},
                         grid: { stroke: "none", strokeDasharray: "2, 4" },
                         labels: {stroke: "none", fontSize: 0}
-                         
                     }}
                 />
 
                 <VictoryPolarAxis
-                    tickValues = {["Anger", "Fear", "Joy", "Sadness", "Analytic", "Confident", "Tentative"]}
+                    tickValues = {["Anger", "Fear", "Joy", "Sadness", "Confident", "Tentative"]}
                 />
 
                 <VictoryArea

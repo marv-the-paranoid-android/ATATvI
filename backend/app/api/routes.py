@@ -228,7 +228,7 @@ def report():
                      "fear"      : 0,   # noqa: E203
                      "joy"       : 0,   # noqa: E203
                      "sadness"   : 0,   # noqa: E203
-                     "analytic"  : 0,   # noqa: E203
+                     "analytic"  : 0,
                      "confident" : 0,   # noqa: E203
                      "tentative" : 0    # noqa: E203
                  },
@@ -238,7 +238,7 @@ def report():
                      "fear"      : 0,   # noqa: E203
                      "joy"       : 0,   # noqa: E203
                      "sadness"   : 0,   # noqa: E203
-                     "analytic"  : 0,   # noqa: E203
+                     "analytic"  : 0,
                      "confident" : 0,   # noqa: E203
                      "tentative" : 0    # noqa: E203
                 }
@@ -265,7 +265,7 @@ def report():
             return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['analytic'] + tweet_dict['tone_analytic'])/dem_tweet_count  # noqa: E501
 
         if tweet_dict['tone_confident']:
-            return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count  # noqa: E501
+            return_dict['parties'][1]['confident'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count  # noqa: E501
 
         if tweet_dict['tone_tentative']:
             return_dict['parties'][1]['tentative'] = (return_dict['parties'][1]['tentative'] + tweet_dict['tone_tentative'])/dem_tweet_count  # noqa: E501
@@ -290,7 +290,7 @@ def report():
             return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['analytic'] + tweet_dict['tone_analytic'])/rep_tweet_count  # noqa: E501
 
         if tweet_dict['tone_confident']:
-            return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count  # noqa: E501
+            return_dict['parties'][0]['confident'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count  # noqa: E501
 
         if tweet_dict['tone_tentative']:
             return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count  # noqa: E501
