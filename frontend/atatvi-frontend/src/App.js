@@ -14,7 +14,7 @@ render(){
         <Header />
         <section className="grid-container">
           <article className="graph">
-            <Graph party='GOP' color='red' />
+            <Graph className="gop" party='GOP' color='red' />
           </article>
           <article className="graph-two">
             <Graph party='DEM' color='blue' />

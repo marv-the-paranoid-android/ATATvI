@@ -2,7 +2,7 @@
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas: "Header Header Header Header" "graph graph graph-two graph-two" "graph graph graph-two graph-two";
+    grid-template-areas: "graph graph graph-two graph-two" "graph graph graph-two graph-two";
   }
   
   .graph {
@@ -21,10 +21,3 @@
     grid-area: graph-two;
   }
   
-  .Header {
-    display: grid;
-    grid-template-columns: 1fr 0fr 0fr;
-    grid-template-rows: 1fr 0fr;
-    grid-template-areas: ". . ." ". . .";
-    grid-area: Header;
-  }
