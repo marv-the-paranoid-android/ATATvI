@@ -317,3 +317,8 @@ Server: Werkzeug/0.15.5 Python/3.7.4
     ]
 }
 ```
+
+### Analyze tweet functions (get_all_tones)
+
+Offering the ability to interact with the chart, clicking on one of the seven sentiments that our app analyzes will bring you to a path extension which will display all tweets with a rating at or above 0.4 in the associated sentiments category. (i.e. all tweets made up of at least 40% analytical tones). 
+

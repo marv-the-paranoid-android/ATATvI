@@ -124,31 +124,88 @@ def process_dowork(id):
 
 @bp.route('/report', methods=['GET'])
 def report():
-    data = {
-        "parties": [
-            {
-                "party"     : "GOP",  # noqa: E203
-                "anger"     : 0.75,   # noqa: E203
-                "fear"      : 0.69,   # noqa: E203
-                "joy"       : 0.00,   # noqa: E203
-                "sadness"   : 0.88,   # noqa: E203
-                "analytic"  : 0.10,   # noqa: E203
-                "confident" : 0.51,   # noqa: E203
-                "tentative" : 0.22    # noqa: E203
-            },
-            {
-                "party"     : "DEM",  # noqa: E203
-                "anger"     : 0.10,   # noqa: E203
-                "fear"      : 0.11,   # noqa: E203
-                "joy"       : 0.70,   # noqa: E203
-                "sadness"   : 0.51,   # noqa: E203
-                "analytic"  : 0.52,   # noqa: E203
-                "confident" : 0.49,   # noqa: E203
-                "tentative" : 0.53    # noqa: E203
-            }
-        ]
-    }
-    return jsonify(data)
+    data_dem_query = Tweet.query.filter_by(status=2, party='Democrat').all()
+    data_rep_query = Tweet.query.filter_by(status=2, party='Republican').all()
+    
+    dem_tweet_count = 0
+    rep_tweet_count = 0
+
+    return_dict =  {
+             "parties": [
+                 {
+                     "party"     : "GOP",  # noqa: E203
+                     "anger"     : 0,   # noqa: E203
+                     "fear"      : 0,   # noqa: E203
+                     "joy"       : 0,   # noqa: E203
+                     "sadness"   : 0,   # noqa: E203
+                     "analytic"  : 0,   # noqa: E203
+                     "confident" : 0,   # noqa: E203
+                     "tentative" : 0    # noqa: E203
+                 },
+                 {
+                     "party"     : "DEM",  # noqa: E203
+                     "anger"     : 0,   # noqa: E203
+                     "fear"      : 0,   # noqa: E203
+                     "joy"       : 0,   # noqa: E203
+                     "sadness"   : 0,   # noqa: E203
+                     "analytic"  : 0,   # noqa: E203
+                     "confident" : 0,   # noqa: E203
+                     "tentative" : 0    # noqa: E203
+                }
+             ]
+         }
+
+    for tweet in data_dem_query: 
+        dem_tweet_count += 1
+        tweet_dict = tweet.to_dict()
+        
+        if tweet_dict['tone_anger']:
+            return_dict['parties'][1]['anger'] = (return_dict['parties'][1]['anger'] + tweet_dict['tone_anger'])/dem_tweet_count
+        
+        if tweet_dict['tone_fear']: 
+            return_dict['parties'][1]['fear'] = (return_dict['parties'][1]['fear'] + tweet_dict['tone_fear'])/dem_tweet_count     
+        
+        if tweet_dict['tone_joy']: 
+            return_dict['parties'][1]['joy'] = (return_dict['parties'][1]['joy'] + tweet_dict['tone_joy'])/dem_tweet_count    
+      
+        if tweet_dict['tone_sadness']: 
+            return_dict['parties'][1]['sadness'] = (return_dict['parties'][1]['sadness'] + tweet_dict['tone_sadness'])/dem_tweet_count    
+        
+        if tweet_dict['tone_analytic']: 
+            return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['analytic'] + tweet_dict['tone_analytic'])/dem_tweet_count
+
+        if tweet_dict['tone_confident']: 
+            return_dict['parties'][1]['confident'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count
+        
+        if tweet_dict['tone_tentative']: 
+            return_dict['parties'][1]['tentative'] = (return_dict['parties'][1]['tentative'] + tweet_dict['tone_tentative'])/dem_tweet_count
+    
+    for tweet in data_rep_query: 
+        rep_tweet_count += 1
+        tweet_dict = tweet.to_dict()   
+
+        if tweet_dict['tone_anger']:
+            return_dict['parties'][0]['anger'] = (return_dict['parties'][0]['anger'] + tweet_dict['tone_anger'])/rep_tweet_count
+        
+        if tweet_dict['tone_fear']: 
+            return_dict['parties'][0]['fear'] = (return_dict['parties'][0]['fear'] + tweet_dict['tone_fear'])/rep_tweet_count     
+        
+        if tweet_dict['tone_joy']: 
+            return_dict['parties'][0]['joy'] = (return_dict['parties'][0]['joy'] + tweet_dict['tone_joy'])/rep_tweet_count    
+      
+        if tweet_dict['tone_sadness']: 
+            return_dict['parties'][0]['sadness'] = (return_dict['parties'][0]['sadness'] + tweet_dict['tone_sadness'])/rep_tweet_count    
+        
+        if tweet_dict['tone_analytic']: 
+            return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['analytic'] + tweet_dict['tone_analytic'])/rep_tweet_count
+
+        if tweet_dict['tone_confident']: 
+            return_dict['parties'][0]['confident'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count
+        
+        if tweet_dict['tone_tentative']: 
+            return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count
+   
+    return jsonify(return_dict)
 
 @bp.route('tweets/<string:tone>', methods=['GET'])
 def get_all_tone_tweets(tone):
