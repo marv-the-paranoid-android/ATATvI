@@ -86,7 +86,7 @@ class Graph extends Component {
                 this.parseData(response.data.parties)
             })
             .catch(function(error){
-                console.log(error)
+                console.log("Axios Error: ", error)
             })
     }
 
@@ -102,19 +102,33 @@ class Graph extends Component {
                 theme={VictoryTheme.material}
                 height={200}
                 width={200}
-                //events={[{
-                    //childName: [],
-                    //target: "data",
-                    //eventHandlers: {
-                        //onClick: () => {
-                            //mutation: (props) => {
-                                //TOOD: needs pop up window, draw data in from dynamic tweet endopoint.
-                                //const labelColor = props.style.color
-                                //return labelColor === "gold" ? null : {style:{color: "gold"}}
-                            //}
-                        //}
-                    //}
-                //}]}
+                events={[{
+                    childName: ['area'],
+                    target: "data",
+                    eventKey: //this.props.oneOfType([
+                        "x",
+                        // CustomPropTypes.allOfType([CustomPropTypes.integer, CustomPropTypes.nonNegative]),
+                        // PropTypes.string
+                     // ]), 
+                    eventHandlers: {
+                        onClick: (e) => {
+                            return [{
+                            //   childName: ["area"],
+                               //target : "data",
+                               mutation: (props) => {
+
+                                   return props.VictoryPolarAxis.tickValues === "clicked" ? null : {text: "clicked"}
+                                
+                                // return {
+                            
+                                  
+                                }
+
+                            //   }
+                             }];
+                          },
+                    }
+                }]}
             >
 
                 <VictoryPolarAxis
@@ -134,6 +148,7 @@ class Graph extends Component {
                 />
 
                 <VictoryArea
+                    name = 'area'
                     data={this.state.data}
                     style={{data: {fill: this.state.color, width: 1}}}
                 />
