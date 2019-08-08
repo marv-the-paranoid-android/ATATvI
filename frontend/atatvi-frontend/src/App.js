@@ -1,40 +1,19 @@
 import React, {Component} from 'react';
 import Graph from './components/graph.js';
+<<<<<<< HEAD
 import axios from 'axios';
 import Modal from './components/Modal/Modal';
+=======
+import Header from './components/header.js';
+import './scss/core.scss';
+import './App.css';
+>>>>>>> devel
 
 require('dotenv').config()
 
 class App extends Component{
-  
-  constructor(props){
-    console.log('in constructor')
-    super(props)
-    this.state = {
-      dataDem: [
-      { x: 1, y: 0},
-      { x: 2, y: 0},
-      { x: 3, y: 0},
-      { x: 4, y: 0},
-      { x: 5, y: 0}, 
-      { x: 6, y: 0}, 
-      { x: 7, y: 0},
-    ],
-      dataRep: [ 
-      { x: 1, y: 0},
-      { x: 2, y: 0},
-      { x: 3, y: 0},
-      { x: 4, y: 0},
-      { x: 5, y: 0}, 
-      { x: 6, y: 0}, 
-      { x: 7, y: 0}
-    ],
-      demTweetCounter: 0,
-      repTweetCounter: 0,
-      color: "#ccccff"
-    }
-  }
 
+<<<<<<< HEAD
   setData(apiData){
     //console.log('IN SET DATA')
     apiData.forEach(tweet =>{ 
@@ -142,6 +121,23 @@ class App extends Component{
             </div>
    );
   }
+=======
+render(){
+    return (
+      <div className="App">
+        <Header />
+        <section className="grid-container">
+          <article className="graph">
+            <Graph party='GOP' color='red' />
+          </article>
+          <article className="graph-two">
+            <Graph party='DEM' color='blue' />
+          </article>
+        </section>
+     </div>
+    );
+}
+>>>>>>> devel
 }
 
 export default App;
