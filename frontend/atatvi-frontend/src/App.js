@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Graph from './components/graph.js';
 import Header from './components/header.js';
 import './scss/core.scss';
-
 import './App.css';
 
 require('dotenv').config()
