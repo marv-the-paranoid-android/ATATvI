@@ -112,7 +112,7 @@ class App extends Component{
     
     return (
       <div className="App">
-        <Header className="Header" />
+        <Header />
         <section className="grid-container">
           <article className="graph">
             <Graph data={this.state.dataDem} color={this.state.color}/>
