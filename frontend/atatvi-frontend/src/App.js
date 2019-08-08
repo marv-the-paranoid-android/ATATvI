@@ -111,15 +111,18 @@ class App extends Component{
   render(){
     
     return (
-     <div className="App">
-        <Header />
-        <Graph className="graph" data={this.state.dataDem} color={this.state.color}/>
-        
-        <Graph className="graph" data={this.state.dataRep} color={this.state.color}/>
-        
+      <div className="App">
+        <Header className="Header" />
+        <section className="grid-container">
+          <article className="graph">
+            <Graph data={this.state.dataDem} color={this.state.color}/>
+          </article>
+          <article className="graph-two">
+            <Graph data={this.state.dataRep} color={this.state.color}/>
+          </article>
+        </section>
      </div>
    );
   }
 }
-
 export default App;
