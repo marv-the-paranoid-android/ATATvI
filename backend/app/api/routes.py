@@ -155,7 +155,6 @@ def report():
              ]
          }
 
-    
     for tweet in data_dem_query: 
         dem_tweet_count += 1
         tweet_dict = tweet.to_dict()
