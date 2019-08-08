@@ -1,11 +1,9 @@
-body {
-    background: $bg_std;
-    font-family: $font_std;
-    font-size: 1.5vw;
+.App{
+    background: url(../assets/gray-wall-textures-background_74190-4389.jpg)repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: $font_std;
-    text-transform: uppercase;
-   }
 
