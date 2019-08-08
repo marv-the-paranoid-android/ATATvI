@@ -155,7 +155,6 @@ def report():
              ]
          }
 
-    
     for tweet in data_dem_query: 
         dem_tweet_count += 1
         tweet_dict = tweet.to_dict()
@@ -176,7 +175,7 @@ def report():
             return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['analytic'] + tweet_dict['tone_analytic'])/dem_tweet_count
 
         if tweet_dict['tone_confident']: 
-            return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count
+            return_dict['parties'][1]['confident'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count
         
         if tweet_dict['tone_tentative']: 
             return_dict['parties'][1]['tentative'] = (return_dict['parties'][1]['tentative'] + tweet_dict['tone_tentative'])/dem_tweet_count
@@ -201,53 +200,16 @@ def report():
             return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['analytic'] + tweet_dict['tone_analytic'])/rep_tweet_count
 
         if tweet_dict['tone_confident']: 
-            return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count
+            return_dict['parties'][0]['confident'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count
         
         if tweet_dict['tone_tentative']: 
             return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count
    
     return jsonify(return_dict)
 
-@bp.route('/tweets/anger', methods=['GET'])
-def get_all_angry_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]
-    print(tweets)
-    return tweets
-
-@bp.route('tweets/fear', methods=['GET'])
-def get_all_fear_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]
-    print(tweets)
-    return tweets
-
-@bp.route('tweets/joy', methods=['GET'])
-def get_all_joy_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]
-    print(tweets)
-    return tweets
-
-@bp.route('tweets/sadness', methods=['GET'])
-def get_all_sadness_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]
-    print(tweets)
-    return tweets
-
-@bp.route('tweets/analytic', methods=['GET'])
-def get_all_analytic_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]
-    print(tweets)
-    return tweets
-
-@bp.route('tweets/confident', methods=['GET'])
-def get_all_confident_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]
-    print(tweets)
-    return tweets
-
-@bp.route('tweets/tentative', methods=['GET'])
-def get_all_tentative_tweets():
-    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]
-    print(tweets)
-    return tweets
-
-#TODO make one dynamic function to replace the repition in the above GETs  
+@bp.route('tweets/<string:tone>', methods=['GET'])
+def get_all_tone_tweets(tone):
+    query_param = request.url.split('/')[-1]
+    tweets = [tweet.to_dict() for tweet in Tweet.query.filter(getattr(Tweet, query_param) >= 0.4)]
+    formatted_tweets = [{'name':tweet['person'],'tweet':tweet['tweet']} for tweet in tweets]
+    return jsonify(formatted_tweets)

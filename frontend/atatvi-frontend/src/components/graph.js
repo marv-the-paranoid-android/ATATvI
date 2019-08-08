@@ -106,9 +106,13 @@ class Graph extends Component {
 
                 <VictoryPolarAxis
                     dependentAxis
+                    tickFormat = {[]}
+                    maxDomain={[1]}
                     style={{
                         axis: {stroke: "none"},
-                        grid: { stroke: "grey", strokeDasharray: "4, 8" }
+                        grid: { stroke: "none", strokeDasharray: "2, 4" },
+                        labels: {stroke: "none", fontSize: 0}
+                         
                     }}
                 />
 

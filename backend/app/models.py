@@ -30,12 +30,13 @@ class Tweet(db.Model):
     tone_confident = db.Column(db.Float, default=0)
     tone_tentative = db.Column(db.Float, default=0)
 
-    def __init__(self, party, person, tweet):
+    def __init__(self, party, person, tweet, tone=None):
         super().__init__()
 
         self.party  = party  # noqa: E221
         self.person = person
         self.tweet  = tweet  # noqa: E221
+        self.tone = tone
 
     def to_dict(self):
         return {
