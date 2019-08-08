@@ -204,6 +204,7 @@ def process_dowork(id):
     if success:
         tweet.status = 2
     else:
+        print(f'ERROR: data.response:[{data.response}]')
         tweet.status = 99
     db.session.add(tweet)
     db.session.commit()
