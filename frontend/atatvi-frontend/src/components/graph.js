@@ -98,6 +98,7 @@ class Graph extends Component {
         return(
             <VictoryChart
                 polar
+                name = 'parentChart'
                 domain={{x: [0, 7]}}
                 theme={VictoryTheme.material}
                 height={200}
@@ -105,19 +106,20 @@ class Graph extends Component {
                 events={[{
                     childName: ['area'],
                     target: "data",
-                    eventKey: //this.props.oneOfType([
-                        "x",
+                    // eventKey: //this.props.oneOfType([
+                    //     "y",
                         // CustomPropTypes.allOfType([CustomPropTypes.integer, CustomPropTypes.nonNegative]),
                         // PropTypes.string
                      // ]), 
                     eventHandlers: {
-                        onClick: (e) => {
+                        onClick: () => {
                             return [{
                             //   childName: ["area"],
-                               //target : "data",
+                               target : "parentChart",
                                mutation: (props) => {
 
-                                   return props.VictoryPolarAxis.tickValues === "clicked" ? null : {text: "clicked"}
+                                   //return props.VictoryPolarAxis.tickValues === "clicked" ? null : {text: "clicked"}
+                                   console.log('clicked ' + )
                                 
                                 // return {
                             
@@ -144,6 +146,7 @@ class Graph extends Component {
                 />
 
                 <VictoryPolarAxis
+                    name = 'xAxis'
                     tickValues = {["Anger", "Fear", "Joy", "Sadness", "Analytic", "Confident", "Tentative"]}
                 />
 
