@@ -5,7 +5,6 @@ import './scss/core.scss';
 
 import './App.css';
 
-
 require('dotenv').config()
 
 class App extends Component{
@@ -24,7 +23,7 @@ render(){
         </section>
      </div>
     );
-}
+
 }
 
 export default App;

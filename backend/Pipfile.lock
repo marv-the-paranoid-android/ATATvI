@@ -43,6 +43,7 @@
             ],
             "version": "==7.0"
         },
+
         "colorama": {
             "hashes": [
                 "sha256:05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d",
@@ -66,6 +67,7 @@
             "index": "pypi",
             "version": "==3.7.8"
         },
+
         "flask": {
             "hashes": [
                 "sha256:13f9f196f330c7c2c5d7a5cf91af894110ca0215ac051b5844701f2bfd934d52",
