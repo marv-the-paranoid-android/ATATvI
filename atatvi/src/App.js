@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Modal from './components/Modal/Modal';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends Component {
+  
+  constructor() {
+    super();
+    
+    this.state = {
+      isShowing: false
+    }
+  }
+  
+  openModalHandler = () => {
+    this.setState({
+      isShowing: true
+    });
+  }
+  
+  closeModalHandler = () => {
+    this.setState({
+      isShowing: false
+    });
+  }
+  
+  render () {
+    return (
+      <div>
+                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
 
-export default App;
+                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+
+                <Modal
+                    className="modal"
+                    show={this.state.isShowing}
+                    close={this.closeModalHandler}>
+                        Name of Democrat or Republican
+                        Content of Tweet
+                </Modal>
+            </div>
+        );
+      }
+    }
+    
+    export default App;
+    
