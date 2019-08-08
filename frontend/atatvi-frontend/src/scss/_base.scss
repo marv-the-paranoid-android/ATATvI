@@ -1,11 +1,12 @@
 .App{
-    background: url(../assets/gray-wall-textures-background_74190-4389.jpg)repeat center center fixed; 
+    background: url(../assets/gray-wall-textures-background_74190-4389.jpg); 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 2000px;
+    background-attachment: fixed;
     width: 1900px;
+    height: 1575px;
     margin: 0 auto;
 
 }

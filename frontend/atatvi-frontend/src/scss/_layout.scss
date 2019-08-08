@@ -26,5 +26,17 @@
     justify-content: center;
     margin: 0 auto;
     width: 80%;
+    align-content: space-between;
+}
+
+.about-us{
+    position: absolute;
+    width: 1900px;
+    border: 3px solid black;
+    content: "THIS IS AN ABOUT US";
+    text-align: center;
+    margin: 20%  auto 0 auto;
+    padding: 200px 0 200px 0;
+    
 }
 

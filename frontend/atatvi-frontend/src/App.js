@@ -10,6 +10,7 @@ class App extends Component{
 
 render(){
     return (
+      <>
       <div className="App">
         <Header />
         <section className="grid-container">
@@ -19,8 +20,12 @@ render(){
           <article className="graph-two">
             <Graph party='DEM' color='blue' />
           </article>
-        </section>
+          <div className="about-us"/>
+          </section>
      </div>
+    
+     </>
+     
     );
 }
 }
