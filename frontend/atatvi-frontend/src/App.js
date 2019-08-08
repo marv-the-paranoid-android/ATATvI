@@ -1,24 +1,28 @@
 import React, {Component} from 'react';
 import Graph from './components/graph.js';
+import Header from './components/header.js';
+import './scss/core.scss';
 import './App.css';
 
 require('dotenv').config()
 
-
 class App extends Component{
 
-    render(){
-        return (
-            <div className="App">
-
-                <div className="row">
-                    <div class="column"><Graph party='GOP' color='red' /></div>
-                    <div class="column"><Graph party='DEM' color='blue' /></div>
-                </div>
-            </div>
-        );
-    }
-
+render(){
+    return (
+      <div className="App">
+        <Header />
+        <section className="grid-container">
+          <article className="graph">
+            <Graph party='GOP' color='red' />
+          </article>
+          <article className="graph-two">
+            <Graph party='DEM' color='blue' />
+          </article>
+        </section>
+     </div>
+    );
+}
 }
 
 export default App;
