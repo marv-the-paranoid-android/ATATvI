@@ -2,7 +2,6 @@
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    // grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr;
     grid-template-areas: "Header Header Header Header" "graph graph graph-two graph-two" "graph graph graph-two graph-two";
   }
   

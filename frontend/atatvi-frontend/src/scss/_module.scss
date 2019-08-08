@@ -28,7 +28,7 @@
     animation:anim 100s linear infinite;
     filter: blur(30px);
   }
-  h1 , p{
+  h1 {
     text-align:center;
     position: relative;
     font-size: 100px;
@@ -68,7 +68,6 @@
 
 .graph-two {
   height: 100%;
-//   margin: 100px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,4 +78,10 @@
   box-shadow: 0px 0px 10px 0px $black;
   background-color: rgba(187,187,187,0.6);
   margin: 15px;
+}
+
+.nlp{
+    font-size: 50px;
+    display: block;
+    z-index: 3;
 }

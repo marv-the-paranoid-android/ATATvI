@@ -7,7 +7,9 @@ class Header extends Component {
       <>
         <section className="Header">
         <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet"></link>
-        <h1 className='title'>ATATvI</h1>
+        <h1 className='title'>ATATvI
+        <p className="nlp"> Nat­ur­al Lan­guage Pro­cessing</p>
+        </h1>
         </section>
       </>
       );
