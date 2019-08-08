@@ -53,4 +53,4 @@ def test_process_dowork(client, sample_tweet):
     assert tweets_dict['party'] == 'GOP'
     assert tweets_dict['person'] == 'Trump'
     assert tweets_dict['tweet'] == 'Bigly'
-    assert tweets_dict['status'] == '2'
+    assert tweets_dict['status'] == '99'
