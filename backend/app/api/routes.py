@@ -175,7 +175,7 @@ def report():
             return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['analytic'] + tweet_dict['tone_analytic'])/dem_tweet_count
 
         if tweet_dict['tone_confident']: 
-            return_dict['parties'][1]['analytic'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count
+            return_dict['parties'][1]['confident'] = (return_dict['parties'][1]['confident'] + tweet_dict['tone_confident'])/dem_tweet_count
         
         if tweet_dict['tone_tentative']: 
             return_dict['parties'][1]['tentative'] = (return_dict['parties'][1]['tentative'] + tweet_dict['tone_tentative'])/dem_tweet_count
@@ -200,7 +200,7 @@ def report():
             return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['analytic'] + tweet_dict['tone_analytic'])/rep_tweet_count
 
         if tweet_dict['tone_confident']: 
-            return_dict['parties'][0]['analytic'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count
+            return_dict['parties'][0]['confident'] = (return_dict['parties'][0]['confident'] + tweet_dict['tone_confident'])/rep_tweet_count
         
         if tweet_dict['tone_tentative']: 
             return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count
