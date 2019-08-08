@@ -17,35 +17,34 @@
     text-align:center;
     font-size: 150px;
     z-index: 3;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: $font_std;
   }
 
 
   .graph {
-    width: 80%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 50%;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
     background-color: #bbbbbbcc;
-    margin-left: 100px;
+    // margin-left: 100px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px 0px $black;
   }
 
 
 .graph-two {
-    width: 80%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 50%;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
     background-color: #bbbbbbcc;
-    margin-right: 65px;
+    // margin-left: 100px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px 0px $black;
+    margin-left: 5%;
   }
 
 .nlp{
