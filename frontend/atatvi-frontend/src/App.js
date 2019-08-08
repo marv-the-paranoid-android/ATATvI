@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Graph from './components/graph.js';
 import axios from 'axios';
+import Modal from './components/Modal/Modal';
 
 require('dotenv').config()
 
@@ -105,6 +106,18 @@ class App extends Component{
     this.getData()
   }
 
+    openModalHandler = () => {
+    this.setState({
+      isShowing: true
+    });
+  }
+  
+  closeModalHandler = () => {
+    this.setState({
+      isShowing: false
+    });
+  }
+
   render(){
     
     return (
@@ -113,7 +126,20 @@ class App extends Component{
         
         <Graph data={this.state.dataRep} color={this.state.color}/>
         
-     </div>
+    
+      
+                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+
+                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+
+                <Modal
+                    className="modal"
+                    show={this.state.isShowing}
+                    close={this.closeModalHandler}>
+                        Name of Democrat or Republican
+                        Content of Tweet
+                </Modal>
+            </div>
    );
   }
 }
