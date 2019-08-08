@@ -102,6 +102,19 @@ class Graph extends Component {
                 theme={VictoryTheme.material}
                 height={200}
                 width={200}
+                //events={[{
+                    //childName: [],
+                    //target: "data",
+                    //eventHandlers: {
+                        //onClick: () => {
+                            //mutation: (props) => {
+                                //TOOD: needs pop up window, draw data in from dynamic tweet endopoint.
+                                //const labelColor = props.style.color
+                                //return labelColor === "gold" ? null : {style:{color: "gold"}}
+                            //}
+                        //}
+                    //}
+                //}]}
             >
 
                 <VictoryPolarAxis
