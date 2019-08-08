@@ -1,9 +1,8 @@
 
   .Header{
     box-sizing: border-box;
-    background: #252525;
     padding: 150px;
-    padding-top: 30px;
+    padding-top: 50px;
     margin-bottom: 100px;
    
     color:rgb(19, 11, 11);
@@ -12,46 +11,13 @@
     overflow: hidden;
 
   }
-  .Header:after{
-    // overflow: hidden;
-    size:120px;
-    content:"";
-    height: 20vh;
-    width: 100%;
-  background-image: linear-gradient( $gradient);
-    position: absolute;
-    top:0;
-    left:0;
-     z-index: 2;
-    border-radius:0 0 50% 50%/0  0 100% 100%;
-    transition:10s ease;
-    background-size: 600%;
-    animation:anim 100s linear infinite;
-    filter: blur(30px);
-  }
+
   h1 {
     text-align:center;
-    font-size: 100px;
+    font-size: 150px;
     z-index: 3;
   }
-  @keyframes anim {
-    0%{
-     background-image: linear-gradient(to right, $gradient);
-  background-position: 0%;
-  
-    }
-    50%{
-   background-image: linear-gradient(to right, $gradient);
-        background-position: 600%;
-       
-    }
-    100%{
-    background-image: linear-gradient(to right, $gradient);
-     background-position: 0%;
-         
-    }
-   
-  }
+
 
   .graph {
     height: 100%;
@@ -84,6 +50,6 @@
     display: block;
     z-index: 3;
     width: 500px;
-    padding-top: 5vh;
+    padding-top: 2vh;
     margin: 0 auto;
 }
