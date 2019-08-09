@@ -15,15 +15,15 @@ render(){
       <div className="App">
         <Header />
         <section className="grid-container">
-        <div className="rep">Republican Tweet Tones:</div>
+        <div className="rep">Republican:</div>
           <article className="graph">
             <Graph className="gop" party='GOP' color='red' />
           </article>
-          <div className="dem">Democrat Tweet Tones:</div>
+          <div className="dem">Democrat:</div>
           <article className="graph-two">
             <Graph party='DEM' color='blue' />
           </article>
-          <Main />
+          {/* <Main /> */}
           </section>
      </div>
     
