@@ -1,0 +1,8 @@
+select status, count(*) from tweet
+group by status
+
+select 'http PUT :5000/api/v1/process/dowork/' || m from (
+select person, min(id) m
+from tweet
+where status = 0
+group by person)
