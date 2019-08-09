@@ -83,7 +83,7 @@ class Graph extends Component {
 
         // @TODO Turn into .ENV
         // const url = 'http://localhost:5000/api/v1/report'
-        const url = 'https://atatvi.onrender.com:443'
+        const url = 'https://atatvi.onrender.com:443/api/v1/report'
 
         axios.get(url)
             .then(response => {
