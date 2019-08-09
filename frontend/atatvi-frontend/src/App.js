@@ -14,11 +14,9 @@ render(){
       <div className="App">
         <Header />
         <section className="grid-container">
-        <div className="rep">Republican:</div>
           <article className="graph">
             <Graph className="gop" party='GOP' color='red' />
           </article>
-          <div className="dem">Democrat:</div>
           <article className="graph-two">
             <Graph party='DEM' color='blue' />
           </article>
