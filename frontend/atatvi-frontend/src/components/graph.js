@@ -141,7 +141,7 @@ class Graph extends Component {
                         eventHandlers: {
                         onClick: () => {
                             return [{
-                            target: "labels",
+                            target: "data[x]",
                             mutation: (props) => {
                                 console.log('clicked', this)
                                 return props.text === "clicked" ?
