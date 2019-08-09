@@ -50,22 +50,24 @@ class Graph extends Component {
      *
      */
     parseData(data) {
-
-        let curstate = this.state
-
+        console.log("inside parseData")
+    
+        let curstate = Object.assign({}, this.state)
+        console.log(data)
         data.forEach(rec => {
 
-            if (rec["party"].toString() === curstate.party) {
+            if (rec["party"] === curstate.party) {
+                
                 curstate.counter ++
 
                 curstate.data = [
-                    { x: 1, y: ((curstate.data[0]["y"] + rec["anger"])     / curstate.counter)*100, label: ""},
-                    { x: 2, y: ((curstate.data[1]["y"] + rec["fear"])      / curstate.counter)*100, label: ""},
-                    { x: 3, y: ((curstate.data[2]["y"] + rec["joy"])       / curstate.counter)*100, label: ""},
-                    { x: 4, y: ((curstate.data[3]["y"] + rec["sadness"])   / curstate.counter)*100, label: ""},
-                    { x: 5, y: ((curstate.data[4]["y"] + rec["analytic"])  / curstate.counter)*100, label: ""},
-                    { x: 6, y: ((curstate.data[5]["y"] + rec["confident"]) / curstate.counter)*100, label: ""},
-                    { x: 7, y: ((curstate.data[6]["y"] + rec["tentative"]) / curstate.counter)*100, label: ""}
+                    { x: 1, y: ((curstate.data[0]["y"] + rec["anger"])     / curstate.counter)*100, label: "", party: ""},
+                    { x: 2, y: ((curstate.data[1]["y"] + rec["fear"])      / curstate.counter)*100, label: "", party: ""},
+                    { x: 3, y: ((curstate.data[2]["y"] + rec["joy"])       / curstate.counter)*100, label: "", party: ""},
+                    { x: 4, y: ((curstate.data[3]["y"] + rec["sadness"])   / curstate.counter)*100, label: "", party: ""},
+                    { x: 5, y: ((curstate.data[4]["y"] + rec["analytic"])  / curstate.counter)*100, label: "", party: ""},
+                    { x: 6, y: ((curstate.data[5]["y"] + rec["confident"]) / curstate.counter)*100, label: "", party: ""},
+                    { x: 7, y: ((curstate.data[6]["y"] + rec["tentative"]) / curstate.counter)*100, label: "", party: ""}
                 ]
             }
         });
@@ -122,15 +124,15 @@ class Graph extends Component {
                     tickValues = {["Anger", "Fear", "Joy", "Sadness", "Analytic", "Confident", "Tentative"]}
                 />
 
-                <VictoryArea
+                {/* <VictoryArea
                     
                     name = 'area'
                     data= {this.state.data}
                     style={{data: {fill: this.state.color, width: 1}}}
-                />
+                /> */}
 
                 <VictoryArea
-                    parseData={this.parseData(this.state.data)}
+                    parseData={(this.state.data)}
                     style={{data: {fill: this.state.color, width: 1}}}
                     data={this.state.data}
                     events={[
@@ -141,8 +143,10 @@ class Graph extends Component {
                             return [{
                             target: "labels",
                             mutation: (props) => {
+                                console.log('clicked', this)
                                 return props.text === "clicked" ?
                                 null : { text: "clicked" }
+                                
                             }
                             }];
                         }
