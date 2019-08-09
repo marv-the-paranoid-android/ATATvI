@@ -100,8 +100,8 @@ class Graph extends Component {
                 polar
                 domain={{x: [0, 6]}}
                 theme={VictoryTheme.material}
-                height={200}
-                width={200}
+                height={185}
+                width={185}
             >
 
                 <VictoryPolarAxis
@@ -117,6 +117,9 @@ class Graph extends Component {
 
                 <VictoryPolarAxis
                     tickValues = {["Anger", "Fear", "Joy", "Sadness", "Confident", "Tentative"]}
+                    style={{
+                      tickLabels: {fontSize: 8}
+                    }}
                 />
 
                 <VictoryArea

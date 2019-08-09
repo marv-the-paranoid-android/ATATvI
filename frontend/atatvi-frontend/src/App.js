@@ -23,6 +23,10 @@ render(){
             <Graph party='DEM' color='blue' />
           </article>
           </section>
+
+        <div className="rep">Republican</div>
+          <div className="dem">Democrat</div>
+
      </div>
     
      </>
