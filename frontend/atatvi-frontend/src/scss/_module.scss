@@ -23,12 +23,7 @@
 
   .graph {
     width: 50%;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
     background-color: #bbbbbbcc;
-    // margin-left: 100px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px 0px $black;
   }
@@ -36,12 +31,7 @@
 
 .graph-two {
     width: 50%;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
     background-color: #bbbbbbcc;
-    // margin-left: 100px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px 0px $black;
     margin-left: 5%;
@@ -53,4 +43,31 @@
     width: 500px;
     padding-top: .5vh;
     margin: 0 auto;
+}
+.about-us{
+    position: absolute;
+    width: 1900px;
+    text-align: center;
+    margin: 20%  auto 0 auto;
+    // padding: 0 0 1% 0;
+    width: 50%;
+    background-color:#D3D3D3;
+    font-size: 25px;
+    border: 1px solid black;
+}
+
+.main{
+    width:75%;
+    margin:0 auto;
+    line-height: 30px;
+}
+.rep{
+    font-size: 30px;
+    text-align: center;
+    margin-right: 50px;
+}
+.dem{
+    font-size: 30px;
+    text-align: center;
+    margin-left: 50px;
 }

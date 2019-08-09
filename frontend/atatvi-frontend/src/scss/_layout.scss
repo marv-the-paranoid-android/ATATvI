@@ -1,25 +1,4 @@
 
-// .grid-container {
-//     display: grid;
-//     grid-template-columns: .6fr 1fr 1fr 1fr;
-//     grid-template-areas: "graph graph graph-two graph-two" "graph graph graph-two graph-two";
-//   }
-  
-//   .graph {
-//     display: grid;
-//     grid-template-columns: 1fr 0fr 0fr;
-//     grid-template-rows: 1fr;
-//     grid-template-areas: ". . ." ". . .";
-//     grid-area: graph;
-//   }
-  
-//   .graph-two {
-//     display: grid;
-//     grid-template-columns: 1fr 0fr 0fr;
-//     grid-template-rows: 1fr 0fr;
-//     grid-template-areas: ". . ." ". . .";
-//     grid-area: graph-two;
-//   }
 
 .grid-container{
     display: flex;
@@ -29,14 +8,5 @@
     align-content: space-between;
 }
 
-.about-us{
-    position: absolute;
-    width: 1900px;
-    border: 3px solid black;
-    content: "THIS IS AN ABOUT US";
-    text-align: center;
-    margin: 20%  auto 0 auto;
-    padding: 200px 0 200px 0;
-    
-}
+
 
