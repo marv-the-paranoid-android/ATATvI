@@ -298,7 +298,7 @@ def report():
     # response = jsonify(return_dict)
     # response.headers.add('Access-Control-Allow-Origin', '*')
     # return response
-    return jsonify(return_dic)
+    return jsonify(return_dict)
 
 
 @bp.route('/tweets/anger', methods=['GET'])
