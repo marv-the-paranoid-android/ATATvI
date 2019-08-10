@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
-import logging
 
 
 db = SQLAlchemy()
@@ -16,18 +15,13 @@ def create_app(ConfigClass):
 
     db.init_app(app)
 
-    # CORS Initialization
-    logging.basicConfig(level=logging.INFO)
-    logging.getLogger('flask_cors').level = logging.DEBUG
     CORS(app)
 
-    # WTF is this?
+    # DB: We aren't going to worry about this for now (testing direct SQL)
     # migrate.init_app(app, db)
 
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
     with app.app_context():
-        # Dunno about this.. but it is here from other projects
-
         return app

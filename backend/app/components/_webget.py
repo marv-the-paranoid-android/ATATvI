@@ -40,14 +40,10 @@ class WebGet:
         validGet = False
         errmsg = ''
         rawdata = ''
-        print(f'user:[{user}]')
-        print(f'passwd:[{passwd}]')
         if user == '':
             response = requests.get(url, headers=headers)
         else:
             response = requests.get(url, headers=headers, auth=(user, passwd))
-        # print(f'!! DEBUG !!: getRaw()::response:[{response}]')
-        # print(f'!! DEBUG !!: getRaw()::response.text:[{response.text}]')
 
         # Error Handling and Data-Validation
         if isinstance(response, requests.models.Response):
@@ -81,8 +77,6 @@ class WebGet:
 
         # Craft URL
         url, headers = self._makeURL()
-
-        print(f'url:[{url}]')
 
         # Get Data
         validGet, data, response, errmsg = self.getRawData(url, headers, selector, self.user, self.passwd)  # noqa:501

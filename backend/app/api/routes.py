@@ -294,10 +294,6 @@ def report():
         if tweet_dict['tone_tentative']:
             return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count  # noqa: E501
 
-    # TEST: Lightweight resolution to CORS issue
-    # response = jsonify(return_dict)
-    # response.headers.add('Access-Control-Allow-Origin', '*')
-    # return response
     return jsonify(return_dict)
 
 
