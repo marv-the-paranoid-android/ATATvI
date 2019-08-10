@@ -60,7 +60,7 @@ def process_getpending():
     if rs.rowcount == 0:
         return bad_request('Nothing Pending')
     row = rs.fetchone()
-    #print(f'row:[{row}]')
+    # print(f'row:[{row}]')
     party = row['party']
 
     # Find a tweet
@@ -91,9 +91,9 @@ def process_getpending():
     row = rs.fetchone()
     id = row['id']
 
-    #print(f'party:[{party}]')
-    #print(f'person:[{person}]')
-    #print(f'id:[{id}]')
+    print(f'party:[{party}]')
+    print(f'person:[{person}]')
+    print(f'id:[{id}]')
 
     # Process Tweet
     # hit the end point?
@@ -211,6 +211,7 @@ def process_dowork(id):
 
     return jsonify(tweet.to_dict())
 
+
 @bp.route('/report', methods=['GET'])
 @cross_origin()
 def report():
@@ -228,7 +229,7 @@ def report():
                      "fear"      : 0,   # noqa: E203
                      "joy"       : 0,   # noqa: E203
                      "sadness"   : 0,   # noqa: E203
-                     "analytic"  : 0,
+                     "analytic"  : 0,   # noqa: E203
                      "confident" : 0,   # noqa: E203
                      "tentative" : 0    # noqa: E203
                  },
@@ -238,7 +239,7 @@ def report():
                      "fear"      : 0,   # noqa: E203
                      "joy"       : 0,   # noqa: E203
                      "sadness"   : 0,   # noqa: E203
-                     "analytic"  : 0,
+                     "analytic"  : 0,   # noqa: E203
                      "confident" : 0,   # noqa: E203
                      "tentative" : 0    # noqa: E203
                 }
@@ -295,55 +296,51 @@ def report():
         if tweet_dict['tone_tentative']:
             return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count  # noqa: E501
 
-    return jsonify(return_dict)
+    # TEST: Lightweight resolution to CORS issue
+    response = jsonify(return_dict)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 
 @bp.route('/tweets/anger', methods=['GET'])
 def get_all_angry_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]  # noqa: E501
-    #print(tweets)
     return tweets
 
 
 @bp.route('tweets/fear', methods=['GET'])
 def get_all_fear_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]  # noqa: E501
-    #print(tweets)
     return tweets
 
 
 @bp.route('tweets/joy', methods=['GET'])
 def get_all_joy_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]  # noqa: E501
-    #print(tweets)
     return tweets
 
 
 @bp.route('tweets/sadness', methods=['GET'])
 def get_all_sadness_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]  # noqa: E501
-    #print(tweets)
     return tweets
 
 
 @bp.route('tweets/analytic', methods=['GET'])
 def get_all_analytic_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]  # noqa: E501
-    #print(tweets)
     return tweets
 
 
 @bp.route('tweets/confident', methods=['GET'])
 def get_all_confident_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]  # noqa: E501
-    #print(tweets)
     return tweets
 
 
 @bp.route('tweets/tentative', methods=['GET'])
 def get_all_tentative_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]  # noqa: E501
-    #print(tweets)
     return tweets
 
 # TODO make one dynamic function to replace the repition in the above GETs
