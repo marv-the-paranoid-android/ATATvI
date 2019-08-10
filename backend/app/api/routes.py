@@ -295,9 +295,10 @@ def report():
             return_dict['parties'][0]['tentative'] = (return_dict['parties'][0]['tentative'] + tweet_dict['tone_tentative'])/rep_tweet_count  # noqa: E501
 
     # TEST: Lightweight resolution to CORS issue
-    response = jsonify(return_dict)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    # response = jsonify(return_dict)
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    # return response
+    return jsonify(return_dic)
 
 
 @bp.route('/tweets/anger', methods=['GET'])
@@ -306,37 +307,37 @@ def get_all_angry_tweets():
     return tweets
 
 
-@bp.route('tweets/fear', methods=['GET'])
+@bp.route('/tweets/fear', methods=['GET'])
 def get_all_fear_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]  # noqa: E501
     return tweets
 
 
-@bp.route('tweets/joy', methods=['GET'])
+@bp.route('/tweets/joy', methods=['GET'])
 def get_all_joy_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]  # noqa: E501
     return tweets
 
 
-@bp.route('tweets/sadness', methods=['GET'])
+@bp.route('/tweets/sadness', methods=['GET'])
 def get_all_sadness_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]  # noqa: E501
     return tweets
 
 
-@bp.route('tweets/analytic', methods=['GET'])
+@bp.route('/tweets/analytic', methods=['GET'])
 def get_all_analytic_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]  # noqa: E501
     return tweets
 
 
-@bp.route('tweets/confident', methods=['GET'])
+@bp.route('/tweets/confident', methods=['GET'])
 def get_all_confident_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]  # noqa: E501
     return tweets
 
 
-@bp.route('tweets/tentative', methods=['GET'])
+@bp.route('/tweets/tentative', methods=['GET'])
 def get_all_tentative_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]  # noqa: E501
     return tweets
