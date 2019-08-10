@@ -1,21 +1,26 @@
-from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+import logging
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 
+
 def create_app(ConfigClass):
 
     app = Flask(__name__)
     app.config.from_object(ConfigClass)
-    #TODO: General cors acces in place, do we want to lock this down fruther?
-    CORS(app)
 
     db.init_app(app)
+
+    # CORS Initialization
+    logging.basicConfig(level=logging.INFO)
+    logging.getLogger('flask_cors').level = logging.DEBUG
+    CORS(app)
+
     # WTF is this?
     # migrate.init_app(app, db)
 

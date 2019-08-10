@@ -1,5 +1,4 @@
 from flask import jsonify, request
-from flask_cors import cross_origin
 from app import db
 from app.models import Tweet
 from app.api import bp
@@ -213,7 +212,6 @@ def process_dowork(id):
 
 
 @bp.route('/report', methods=['GET'])
-@cross_origin()
 def report():
     data_dem_query = Tweet.query.filter_by(status=2, party='Democrat').all()
     data_rep_query = Tweet.query.filter_by(status=2, party='Republican').all()
