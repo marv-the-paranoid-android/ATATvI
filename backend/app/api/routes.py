@@ -179,7 +179,7 @@ def process_dowork(id):
     # Send Payload to Watson
     # @TODO Send Payload
     watson = Watson(tweet.tweet, 'watson-return.txt')
-    data = watson.getData('document_tone')
+    data = watson.getMock('document_tone')
 
     # Save Payload from Watson
     success = False
