@@ -4,9 +4,11 @@ attrs==19.1.0
 certifi==2019.6.16
 chardet==3.0.4
 Click==7.0
+colorama==0.4.1
 entrypoints==0.3
 flake8==3.7.8
 Flask==1.1.1
+Flask-Cors==3.0.8
 Flask-HTTPAuth==3.3.0
 Flask-Login==0.4.1
 Flask-Migrate==2.5.2

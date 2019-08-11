@@ -10,17 +10,25 @@ class App extends Component{
 
 render(){
     return (
+      <>
       <div className="App">
         <Header />
         <section className="grid-container">
           <article className="graph">
-            <Graph party='GOP' color='red' />
+            <Graph className="gop" party='GOP' color='red' />
           </article>
           <article className="graph-two">
             <Graph party='DEM' color='blue' />
           </article>
-        </section>
+          </section>
+
+        <div className="rep">Republican</div>
+          <div className="dem">Democrat</div>
+
      </div>
+    
+     </>
+     
     );
 }
 }

@@ -14,7 +14,6 @@ import json
 
 @bp.route('/tweets', methods=['GET'])
 def tweet_getall():
-    print(f'all:[{Tweet.query.all()}]')
     tweets = [tweet.to_dict() for tweet in Tweet.query.all()]
     return jsonify(tweets)
 
@@ -60,7 +59,7 @@ def process_getpending():
     if rs.rowcount == 0:
         return bad_request('Nothing Pending')
     row = rs.fetchone()
-    print(f'row:[{row}]')
+    # print(f'row:[{row}]')
     party = row['party']
 
     # Find a tweet
@@ -228,7 +227,7 @@ def report():
                      "fear"      : 0,   # noqa: E203
                      "joy"       : 0,   # noqa: E203
                      "sadness"   : 0,   # noqa: E203
-                     "analytic"  : 0,
+                     "analytic"  : 0,   # noqa: E203
                      "confident" : 0,   # noqa: E203
                      "tentative" : 0    # noqa: E203
                  },
@@ -238,7 +237,7 @@ def report():
                      "fear"      : 0,   # noqa: E203
                      "joy"       : 0,   # noqa: E203
                      "sadness"   : 0,   # noqa: E203
-                     "analytic"  : 0,
+                     "analytic"  : 0,   # noqa: E203
                      "confident" : 0,   # noqa: E203
                      "tentative" : 0    # noqa: E203
                 }
@@ -301,49 +300,42 @@ def report():
 @bp.route('/tweets/anger', methods=['GET'])
 def get_all_angry_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_anger >= 0.4)]  # noqa: E501
-    print(tweets)
     return tweets
 
 
-@bp.route('tweets/fear', methods=['GET'])
+@bp.route('/tweets/fear', methods=['GET'])
 def get_all_fear_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_fear >= 0.4)]  # noqa: E501
-    print(tweets)
     return tweets
 
 
-@bp.route('tweets/joy', methods=['GET'])
+@bp.route('/tweets/joy', methods=['GET'])
 def get_all_joy_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_joy >= 0.4)]  # noqa: E501
-    print(tweets)
     return tweets
 
 
-@bp.route('tweets/sadness', methods=['GET'])
+@bp.route('/tweets/sadness', methods=['GET'])
 def get_all_sadness_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_sadness >= 0.4)]  # noqa: E501
-    print(tweets)
     return tweets
 
 
-@bp.route('tweets/analytic', methods=['GET'])
+@bp.route('/tweets/analytic', methods=['GET'])
 def get_all_analytic_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_analytic >= 0.4)]  # noqa: E501
-    print(tweets)
     return tweets
 
 
-@bp.route('tweets/confident', methods=['GET'])
+@bp.route('/tweets/confident', methods=['GET'])
 def get_all_confident_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_confident >= 0.4)]  # noqa: E501
-    print(tweets)
     return tweets
 
 
-@bp.route('tweets/tentative', methods=['GET'])
+@bp.route('/tweets/tentative', methods=['GET'])
 def get_all_tentative_tweets():
     tweets = [tweet.to_dict() for tweet in Tweet.query.filter(Tweet.tone_tentative >= 0.4)]  # noqa: E501
-    print(tweets)
     return tweets
 
 # TODO make one dynamic function to replace the repition in the above GETs

@@ -2,54 +2,66 @@
   .Header{
     box-sizing: border-box;
     padding: 150px;
-    padding-top: 50px;
+    padding-top: 20px;
     margin-bottom: 100px;
+    border-bottom: 5px solid black;
    
     color:rgb(19, 11, 11);
-    height: 40vh;
     position: relative;
-    overflow: hidden;
 
   }
 
   h1 {
+    color: whitesmoke;
     text-align:center;
     font-size: 150px;
     z-index: 3;
+    font-family: $font_std;
   }
 
 
   .graph {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(187,187,187,0.8);
-    margin: 15px;
+    width: 50%;
+    background-color: #bbbbbbcc;
     border-radius: 20px;
     box-shadow: 0px 0px 10px 0px $black;
   }
 
 
 .graph-two {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(187,187,187,0.6);
-  margin: 15px;
-  border-radius: 20px;
-  box-shadow: 0px 0px 10px 0px $black;
-  background-color: rgba(187,187,187,0.6);
-  margin: 15px;
-}
+    width: 50%;
+    background-color: #bbbbbbcc;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 0px $black;
+    margin-left: 5%;
+  }
 
 .nlp{
     display: block;
     z-index: 3;
     width: 500px;
-    padding-top: 2vh;
+    padding-top: .5vh;
     margin: 0 auto;
+}
+.about-us{
+    position: absolute;
+    width: 1900px;
+    text-align: center;
+    margin: 20%  auto 0 auto;
+    width: 50%;
+    background-color:#D3D3D3;
+    font-size: 25px;
+    border: 1px solid black;
+}
+
+.rep{
+  margin-top: 3%;
+  display: inline-block;
+  font-size: 40px;
+}
+.dem{
+  margin-top: 3%;
+  display: inline-block;
+  font-size: 40px;
+  margin-left: 35%;
 }

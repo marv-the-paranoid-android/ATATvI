@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {VictoryArea, VictoryPolarAxis,VictoryChart, VictoryTheme} from 'victory';
 import axios from 'axios';
 
+
+
+
 // const testData = [
 //   { x: 1, y: .4},
 //   { x: 2, y: .9},
@@ -79,7 +82,8 @@ class Graph extends Component {
     loadData() {
 
         // @TODO Turn into .ENV
-        const url = 'http://localhost:5000/api/v1/report'
+        //const url = 'http://localhost:5000/api/v1/report'
+        const url = 'https://atatvi.onrender.com:443/api/v1/report'
 
         axios.get(url)
             .then(response => {
@@ -100,14 +104,13 @@ class Graph extends Component {
                 polar
                 domain={{x: [0, 6]}}
                 theme={VictoryTheme.material}
-                height={200}
-                width={200}
+                height={185}
+                width={185}
             >
 
                 <VictoryPolarAxis
                     dependentAxis
                     tickFormat = {[]}
-                    maxDomain={[1]}
                     style={{
                         axis: {stroke: "none"},
                         grid: { stroke: "none", strokeDasharray: "2, 4" },
@@ -117,6 +120,9 @@ class Graph extends Component {
 
                 <VictoryPolarAxis
                     tickValues = {["Anger", "Fear", "Joy", "Sadness", "Confident", "Tentative"]}
+                    style={{
+                      tickLabels: {fontSize: 8}
+                    }}
                 />
 
                 <VictoryArea

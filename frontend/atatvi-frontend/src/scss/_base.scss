@@ -1,12 +1,14 @@
 .App{
-    background: url(../assets/gray-wall-textures-background_74190-4389.jpg)repeat center center fixed; 
+    background: url(../assets/gray-wall-textures-background_74190-4389.jpg); 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 2000px;
+    background-attachment: fixed;
     width: 1900px;
+    height: 2000px;
     margin: 0 auto;
+
 }
 
 .Header{
@@ -15,9 +17,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 2000px;
+    height: 100px;
     width: 1900px;
     margin: 0 auto;
 }
-
-
