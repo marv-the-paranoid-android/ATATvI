@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "*"
+flake8 = "*"
+pytest = "*"
+autopep8 = "*"
+
+[packages]
+flask = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+python-dotenv = "*"
+flask-httpauth = "*"
+flask-login = "*"
+httpie-jwt-auth = "*"
+gunicorn = "*"
+flask-cors = "*"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
